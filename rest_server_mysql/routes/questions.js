@@ -15,7 +15,7 @@ var routes = function () {
                 res.send(err.message);
             } else {
                 if(rows.length == 0) {
-                    res.status(404).json({message: `No questions found for topic with the id of ${topic_id}`});
+                    res.status(200).json([{message: `No questions found for topic with the id of ${topic_id}`}]);
                 } else 
                     res.json(rows);
             }

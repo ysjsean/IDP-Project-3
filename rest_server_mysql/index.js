@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 8001;
+const cors = require('cors');
 const topics = require("./routes/topics");
 const users = require("./routes/users");
 const questions = require("./routes/questions");
@@ -21,6 +22,13 @@ app.use("/api/topics", topics);
 app.use("/api/users", users);
 app.use("/api/questions", questions);
 app.use("/api/answers", answers);
+
+app.use(cors({
+    origin:'http://10.27.158.242:3000', 
+    // origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+ }));
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
