@@ -1,0 +1,32 @@
+.footer {
+  border-top: 1px solid #e8ebf3;
+  text-align: center;
+  padding: 6px 0 10px;
+  margin: auto 30px 0;
+  font-size: 11px;
+  position: absolute;
+  bottom: 0;
+  color: #e8ebf3;
+  width: 140px;
+}
+
+.nav {
+  height: 100vh;
+  z-index: 99;
+  position: fixed;
+}
+
+.quizLogo {
+  width: 100%;
+  padding: 30px;
+  position: absolute;
+  bottom: 48px;
+  filter: opacity(0.1);
+  transition: all 0.3s;
+}
+
+.logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}

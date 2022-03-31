@@ -1,0 +1,10 @@
+.formMainDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.loginFormStyles,
+.regFormStyles {
+  flex: 1;
+  padding: 15px;
+}

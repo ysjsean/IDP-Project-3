@@ -1,0 +1,39 @@
+.ant-tabs-nav-list {
+  margin-left: 5px;
+}
+.ant-tabs-tab {
+  padding: 5px 15px 5px 15px;
+  margin: 0 2px;
+  background-color: #e8ebf3;
+  border: 1px solid black;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.ant-tabs-tab:hover{
+  color: #192B3D;
+}
+
+.ant-tabs-tab-btn:active{
+  color: #192B3D;
+}
+
+.ant-tabs-tab-active {
+  background-color: #192B3D;
+  
+}
+.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white !important;
+  font-weight: bold !important;
+}
+.ant-tabs-ink-bar {
+  background-color: #192B3D !important;
+}
+
+.mapTable .ant-table-tbody .ant-table-row td,
+.worldTable .ant-table-tbody .ant-table-row td {
+  word-wrap: break-word;
+  max-width: 25vh;
+}
+.ant-tabs-top > .ant-tabs-nav::before{
+  border-bottom: 1px solid black;
+}
