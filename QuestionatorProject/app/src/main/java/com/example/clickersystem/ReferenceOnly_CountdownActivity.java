@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class NotImpt_CountdownActivity extends AppCompatActivity
+public class ReferenceOnly_CountdownActivity extends AppCompatActivity
 {
     private TextView txtTimer;
 
@@ -14,7 +14,7 @@ public class NotImpt_CountdownActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.student_countdown_page);
+        setContentView(R.layout.referenceonly_student_countdown_page);
 
         txtTimer = (TextView)  findViewById(R.id.timer);
         new CountDownTimer(4000, 1000) {

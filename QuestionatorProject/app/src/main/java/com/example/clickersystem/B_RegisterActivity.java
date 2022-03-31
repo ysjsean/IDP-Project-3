@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class RegisterActivity extends AppCompatActivity
+public class B_RegisterActivity extends AppCompatActivity
 {
     private Button registeracc;
     private Button backtologin;
@@ -15,7 +15,7 @@ public class RegisterActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.student_registration_page);
+        setContentView(R.layout.b_student_registration_page);
 
         registeracc = (Button) findViewById(R.id.btnRegister);
         backtologin = (Button) findViewById(R.id.btnBackToLogin);
@@ -25,7 +25,7 @@ public class RegisterActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(RegisterActivity.this, LoginPageActivity.class);
+                Intent intent = new Intent(B_RegisterActivity.this, A_LoginPageActivity.class);
                 startActivity(intent);
             }
         });
@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(RegisterActivity.this, LoginPageActivity.class);
+                Intent intent = new Intent(B_RegisterActivity.this, A_LoginPageActivity.class);
                 startActivity(intent);
             }
         });

@@ -13,28 +13,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClickerSystem">
         <activity
-            android:name=".EnterSessionIDActivity"
+            android:name=".C_EnterSessionIDActivity"
             android:exported="false" />
         <activity
-            android:name=".FinalPageActivity"
+            android:name=".F_FinalPageActivity"
             android:exported="false" />
         <activity
-            android:name=".AutoNextQuestionActivity"
+            android:name=".E_AutoNextQuestionActivity"
             android:exported="false" />
         <activity
-            android:name=".WaitingActivity"
+            android:name=".D_WaitingActivity"
             android:exported="false" />
         <activity
-            android:name=".NotImpt_CountdownActivity"
+            android:name=".ReferenceOnly_CountdownActivity"
             android:exported="false" />
         <activity
-            android:name=".ignorethis"
+            android:name=".B_RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginPageActivity"
+            android:name=".A_LoginPageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -21,19 +21,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class EnterSessionIDActivity extends AppCompatActivity
+public class C_EnterSessionIDActivity extends AppCompatActivity
 {
     private Button enterquiz;
     private EditText sessionid;
     URL target;
     HttpURLConnection conn;
-    private static final String TAG = EnterSessionIDActivity.class.getSimpleName();
+    private static final String TAG = C_EnterSessionIDActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.student_entersessionid_page);
+        setContentView(R.layout.c_student_entersessionid_page);
 //        String url = getResources().getString(R.string.api_url) + "/api/questions/5123/1";
         String url = String.format("%s/api/questions/%s/%d", getResources().getString(R.string.api_url),"5123", 1);
         new HttpTask().execute(url); // Send HTTP request
@@ -47,16 +47,18 @@ public class EnterSessionIDActivity extends AppCompatActivity
         enterquiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EnterSessionIDActivity.this, AutoNextQuestionActivity.class);
+                Intent intent = new Intent(C_EnterSessionIDActivity.this, D_WaitingActivity.class);
                 String sessionidInput = sessionid.getText().toString();
 
                 if (sessionidInput.equals("1234"))
                 {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
+                    C_EnterSessionIDActivity.this.finish();
                 }
                 else
                 {
-                    Toast.makeText(EnterSessionIDActivity.this, "Invalid Session ID, Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(C_EnterSessionIDActivity.this, "Invalid Session ID, Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -100,7 +102,7 @@ public class EnterSessionIDActivity extends AppCompatActivity
                 for(int i = 0; i < jsonArr.length(); i++){
                     Log.d(TAG, "doInBackground: " + jsonArr.getJSONObject(i).getString("answer"));
                 }
-                Toast.makeText(EnterSessionIDActivity.this, "" + jsonArr.length(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(C_EnterSessionIDActivity.this, "" + jsonArr.length(), Toast.LENGTH_SHORT).show();
 
             } catch (JSONException e){
                 Log.d(TAG, "err: " + e);
