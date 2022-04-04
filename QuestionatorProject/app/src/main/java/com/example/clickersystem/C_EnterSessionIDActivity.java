@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +33,8 @@ public class C_EnterSessionIDActivity extends AppCompatActivity
     HttpURLConnection conn;
     private static final String TAG = C_EnterSessionIDActivity.class.getSimpleName();
 
+    private EditText id1, id2, id3, id4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -43,14 +49,55 @@ public class C_EnterSessionIDActivity extends AppCompatActivity
 
         enterquiz = (Button) findViewById(R.id.btnEnterQuiz);
         sessionid = (EditText) findViewById(R.id.txtEnterSessionID);
+        id1 = (EditText) findViewById(R.id.txtID1);
+        id2 = (EditText) findViewById(R.id.txtID2);
+        id3 = (EditText) findViewById(R.id.txtID3);
+        id4 = (EditText) findViewById(R.id.txtID4);
 
+        //auto detect 4-digit session ID input function//
+        sessionid.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){
+                Intent intent = new Intent(C_EnterSessionIDActivity.this, D_WaitingActivity.class);
+                String sessionidInput = sessionid.getText().toString().trim();
+
+                if(sessionidInput.equals("1234"))
+                {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    C_EnterSessionIDActivity.this.finish();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+        //auto detect 4-digit session ID input function//
+
+        //4-digit code function//
+        id1.addTextChangedListener(idinputWatcher);
+        id2.addTextChangedListener(idinputWatcher);
+        id3.addTextChangedListener(idinputWatcher);
+        id4.addTextChangedListener(idinputWatcher);
+        //4-digit code function//
+
+        //Button function//
         enterquiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(C_EnterSessionIDActivity.this, D_WaitingActivity.class);
-                String sessionidInput = sessionid.getText().toString();
+                //String sessionidInput = sessionid.getText().toString();
+                String id1input = id1.getText().toString().trim();
+                String id2input = id2.getText().toString().trim();
+                String id3input = id3.getText().toString().trim();
+                String id4input = id4.getText().toString().trim();
 
-                if (sessionidInput.equals("1234"))
+                if (id1input.equals("1") && id2input.equals("2") && id3input.equals("3") && id4input.equals("4"))
                 {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -62,7 +109,41 @@ public class C_EnterSessionIDActivity extends AppCompatActivity
                 }
             }
         });
+        //Button function//
     }
+
+    //4-digit code function//
+    private TextWatcher idinputWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            String id1input = id1.getText().toString().trim();
+            String id2input = id2.getText().toString().trim();
+            String id3input = id3.getText().toString().trim();
+            String id4input = id4.getText().toString().trim();
+
+            if(id1input.length() == 1 && id2input.length() == 0 && id3input.length() == 0 && id4input.length() == 0)
+            {
+                id2.requestFocus();
+            }
+            if(id1input.length() == 1 && id2input.length() == 1 && id3input.length() == 0 && id4input.length() == 0)
+            {
+                id3.requestFocus();
+            }
+            if(id1input.length() == 1 && id2input.length() == 1 && id3input.length() == 1 && id4input.length() == 0)
+            {
+                id4.requestFocus();
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+        }
+    };
+    //4-digit code function//
 
     // Run the HTTP request in a background thread, separating from the main UI thread
     private class HttpTask extends AsyncTask<String, Void, String> {

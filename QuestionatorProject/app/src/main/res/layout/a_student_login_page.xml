@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1AFFFFFF">
+    android:background="@drawable/main_bg" >
 
     <ImageView
         android:id="@+id/logoMain"
@@ -20,11 +20,13 @@
     <TextView
         android:id="@+id/btnSignUpHere"
         android:layout_width="wrap_content"
-        android:layout_height="17dp"
+        android:layout_height="25dp"
         android:layout_marginTop="20dp"
         android:text="@string/btnSignUpHere"
         android:textAllCaps="false"
-        android:textColor="#3F51B5"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -80,7 +82,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:inputType="text"
-            android:text="LOGIN" />
+            android:text="LOGIN"
+            android:backgroundTint="#99000000"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

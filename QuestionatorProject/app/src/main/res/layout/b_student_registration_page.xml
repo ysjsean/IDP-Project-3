@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="@drawable/main_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,8 +14,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
             android:contentDescription="@string/mainLogo"
             app:srcCompat="@drawable/logo_main" />
@@ -35,8 +36,9 @@
                     android:id="@+id/nameInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
-                    android:inputType="textEmailAddress" />
+                    android:backgroundTint="#E6FFFFFF"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    android:hint="Name" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,6 +52,7 @@
                     android:id="@+id/emailInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#E6FFFFFF"
                     android:hint="Email"
                     android:inputType="textEmailAddress" />
 
@@ -65,8 +68,9 @@
                     android:id="@+id/contactInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#E6FFFFFF"
                     android:hint="Contact Number"
-                    android:inputType="textPhonetic" />
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,6 +86,7 @@
                     android:id="@+id/passwordInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#E6FFFFFF"
                     android:hint="Password"
                     android:inputType="textPassword" />
 
@@ -99,6 +104,7 @@
                     android:id="@+id/confirmpasswordInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#E6FFFFFF"
                     android:hint="Confirm Password"
                     android:inputType="textPassword" />
 
@@ -108,16 +114,20 @@
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#99000000"
                 android:inputType="text"
-                android:text="REGISTER" />
+                android:text="REGISTER"
+                android:textColor="@color/white" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBackToLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
+                android:backgroundTint="#99000000"
                 android:inputType="text"
-                android:text="BACK TO LOGIN" />
+                android:text="BACK TO LOGIN"
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </LinearLayout>

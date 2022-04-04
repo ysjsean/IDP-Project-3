@@ -5,6 +5,8 @@
     <string name="mainLogo"> </string>
     <string name="btnSignUpHere">No account? Sign up here</string>
 
+    <string name="labelWelcome">Welcome,</string>
+    <string name="labelName">*name of user*</string>
     <string name="labelEnterSessionId">Enter Session ID:</string>
     <string name="btnEnterQuiz">ENTER QUIZ</string>
 
@@ -21,6 +23,7 @@
     <string name="option_D">D</string>
     <string name="countdownTimer">*seconds left*</string>
 
+    <string name="completionLabel">You have completed the quiz</string>
     <string name="finalscoreLabel">Your Total Score is:</string>
     <string name="finalscore">*Your Score*</string>
     <string name="rankingLabel">Rank:</string>
