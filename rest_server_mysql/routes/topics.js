@@ -19,6 +19,23 @@ var routes = function () {
         })
     });
 
+    router.get('/no_session/:user_id', function(req, res, next) {
+        var user_id = req.params.user_id;
+
+        var query = `select * from topics where user_id = ${user_id} and not session_id`;
+        db.query(query, function(err, rows, fields) {
+            if (err) {
+                res.send(err.message);
+            } else {
+            /*If you are creating api then get response in json format*/
+                res.json(rows);
+            }
+
+            /*If you want response as json then comment below line*/
+            // res.render('items', { title: 'Items', items: rows});
+        })
+    });
+
     router.post('/', function(req, res, next) {
 
         var user_id = req.body.user_id;

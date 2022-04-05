@@ -9,7 +9,7 @@ var routes = function () {
 
         var topic_id = req.params.topic_id;
 
-        var query = `select * from questions where topic_id = ${topic_id}`;
+        var query = `select q.question_id, q.question_no, q.description question, a.answer_id, a.option, a.description answer, a.isCorrect from questions as q inner join answers as a on q.question_id = a.question_id where topic_id = ${topic_id}`;
         db.query(query, function(err, rows, fields) {
             if (err) {
                 res.send(err.message);

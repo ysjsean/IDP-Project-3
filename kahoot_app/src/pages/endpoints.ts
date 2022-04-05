@@ -13,7 +13,8 @@ const openNotificationWithIcon = (
 };
 
 const endpoints = {
-  url: "http://10.27.158.242:8001"
+  url: "http://10.27.127.105:8001"
+  // url: "http://192.168.1.89:8001"
 };
 
 export default endpoints;

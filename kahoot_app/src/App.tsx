@@ -15,6 +15,10 @@ function App() {
   // Layout States
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [isBrokenBreakpoint, setIsBrokenBreakpoint] = useState(true);
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [role, setRole] = useState("");
+  const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState(0);
 
   return (
     <Router>
@@ -25,6 +29,9 @@ function App() {
           isBrokenBreakpoint={isBrokenBreakpoint}
           setIsBrokenBreakpoint={setIsBrokenBreakpoint}
           content={AppContents}
+          loginSuccess={loginSuccess}
+          role={role}
+          setLoginSuccess={setLoginSuccess}
         />
         <Layout
           style={{
@@ -33,8 +40,27 @@ function App() {
             left: isBrokenBreakpoint ? 0 : 200,
           }}
         >
-          <Header content={AppContents} />
-          <Content content={AppContents} />
+          <Header 
+            content={AppContents}
+            role={role}
+            setRole={setRole}
+            loginSuccess={loginSuccess}
+            setLoginSuccess={setLoginSuccess}
+            username={username}
+            setUsername={setUsername}
+            setUserId={setUserId}
+          />
+          <Content 
+            content={AppContents}
+            role={role}
+            setRole={setRole}
+            loginSuccess={loginSuccess}
+            setLoginSuccess={setLoginSuccess}
+            username={username}
+            setUsername={setUsername}
+            userId={userId}
+            setUserId={setUserId}
+          />
         </Layout>
       </Layout>
     </Router>

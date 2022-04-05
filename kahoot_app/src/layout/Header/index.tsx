@@ -10,22 +10,37 @@ interface LayoutHeaderProps {
     title: string;
     icon: any;
   }[];
+  role: string;
+  setRole: React.Dispatch<React.SetStateAction<string>>;
+  loginSuccess: boolean;
+  setLoginSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+  username: string;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  setUserId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const LayoutHeader: React.FC<LayoutHeaderProps> = (props) => {
-  const { content } = props;
+  const { content, role, setRole, loginSuccess, setLoginSuccess, username, setUsername } = props;
   const { Header } = Layout;
 
   return (
     <Header className={styles.header}>
       <Switch>
         {content.map((item) => (
-          <Route key={item.route} exact path={item.route}>
+          item.route === "/" && (loginSuccess ? !loginSuccess : sessionStorage.getItem("user_id") === null) ?
+          <Route key={item.route} path={item.route}>
             <span>
               <item.icon />
               &nbsp;&nbsp;{item.title}
             </span>
-          </Route>
+          </Route> : item.route !== "/" && (loginSuccess ? loginSuccess : sessionStorage.getItem("user_id") !== null) ?
+          <Route key={item.route} path={item.route}>
+            <span>
+              <item.icon />
+              &nbsp;&nbsp;{item.title}
+            </span>
+          </Route> :
+          ""
         ))}
       </Switch>
     </Header>
