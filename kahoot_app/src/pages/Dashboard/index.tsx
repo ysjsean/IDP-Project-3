@@ -4,6 +4,7 @@ import endpoints from "../endpoints";
 
 // import MapTable from "./components/MapTable";
 import TopicTable from "./components/TopicTable";
+import QuestionTable from "./components/QuestionTable";
 // import UserTable from "./components/UserTable";
 // import ManageUser from "./components/ManageUser";
 // // import ManageRole from "./components/ManageRole";
@@ -13,6 +14,9 @@ import "./index.css";
 
 const Dashboard = (props: any) => {
   const [topicsTableData, setTopicsTableData] = useState<
+    { [key: string]: number }[]
+  >([]);
+  const [questionsTableData, setQuestionsTableData] = useState<
     { [key: string]: number }[]
   >([]);
   const [mapsTableData, setMapsTableData] = useState<
@@ -54,9 +58,40 @@ const Dashboard = (props: any) => {
     //   setMapsTableData(tableData);
     // };
 
+  const getQuestionTableContents = async () => {
+    try{
+      const res = await fetch(endpoints.url + "/api/topics/" + sessionStorage.getItem("user_id"), {
+        method: "get",
+        // headers: {"Access-Control-Allow-Origin": "http://10.27.158.242:8001"} 
+        // mode: "no-cors"
+        // body:JSON.stringify({user_id: 1}),
+      });
+      const posts = await res.json();
+      console.log(posts);
+      var tableData: {
+        [key: string]: number;
+      }[] = [];
+
+      for (var x = 0; x < Object.keys(posts).length; x++) {
+        let b;
+        b = {
+          key: parseInt(Object.keys(posts)[x]),
+          topic_name: posts[Object.keys(posts)[x]].name,
+          session_id: posts[Object.keys(posts)[x]].session_id,
+          topic_id: posts[Object.keys(posts)[x]].topic_id
+        };
+        tableData.push(b);
+      }
+      setTopicsTableData(tableData);
+    }catch(err){
+      console.log(err);
+    }
+    
+  };
+
     const getTopicTableContents = async () => {
       try{
-        const res = await fetch(endpoints.url + "/api/topics/1", {
+        const res = await fetch(endpoints.url + "/api/topics/" + sessionStorage.getItem("user_id"), {
           method: "get",
           // headers: {"Access-Control-Allow-Origin": "http://10.27.158.242:8001"} 
           // mode: "no-cors"
@@ -88,13 +123,14 @@ const Dashboard = (props: any) => {
     getTopicTableContents();
   };
 
-  const getAllUsers = async () => {
-    const response = await fetch(`/api/user`);
+  const getAllTopics = async () => {
+    const user_id = 1;
+    const response = await fetch(`/api/topics/no_session/${user_id}/`);
     if (response.status === 200) {
       const result = await response.json();
       console.log(result);
       if (result.success) {
-        setDropdownUsers(result.data);
+        setQuestionsTableData(result.data);
       }
     }
   };
@@ -140,7 +176,7 @@ const Dashboard = (props: any) => {
   return (
     <>
       <Tabs type="line" tabPosition={"top"}>
-        <TabPane tab="Tables" key="1">
+        <TabPane tab="Session" key="1">
           <Row gutter={[16, 16]}>
             <Col lg={{ span: 10 }} md={{ span: 24 }}>
               <TopicTable
@@ -156,9 +192,13 @@ const Dashboard = (props: any) => {
             </Col>
           </Row>
         </TabPane>
-        <TabPane tab="User Management" key="2">
+        <TabPane tab="Questions" key="2">
           <Row gutter={[16, 16]}>
-            <Col lg={{ span: 12 }} md={{ span: 24 }}>
+            <Col lg={{ span: 22 }} md={{ span: 24 }}>
+              <QuestionTable
+                questionsTableData={questionsTableData}
+                getAllTopics={getAllTopics}
+              />
               {/* <Row>
                   <ManageRole />
                 </Row> */}
@@ -183,7 +223,7 @@ const Dashboard = (props: any) => {
             </Col>
           </Row>
         </TabPane>
-        <TabPane tab="Resource Management" key="3">
+        <TabPane tab="Statistics" key="3">
           {/* <RolePermission
             getAllRoles={getAllRoles}
             setDropdownRoles={setDropdownRoles}

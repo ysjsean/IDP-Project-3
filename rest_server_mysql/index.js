@@ -15,7 +15,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-    res.json({message: "ok"});
+    res.status(200).json({message: "ok"});
 });
 
 app.use("/api/topics", topics);

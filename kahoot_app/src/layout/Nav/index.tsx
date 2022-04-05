@@ -15,6 +15,9 @@ interface SidenavProps {
     title: string;
     icon: any;
   }[];
+  loginSuccess: boolean;
+  role: string;
+  setLoginSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Sidenav: React.FC<SidenavProps> = (props) => {
@@ -24,11 +27,15 @@ const Sidenav: React.FC<SidenavProps> = (props) => {
     isBrokenBreakpoint,
     setIsBrokenBreakpoint,
     content,
+    loginSuccess,
+    role,
+    setLoginSuccess
   } = props;
   const { Sider } = Layout;
   const { Item } = Menu;
 
   let location = useLocation();
+  console.log(location);
   return (
     <Sider
       className={styles.nav}
@@ -54,19 +61,48 @@ const Sidenav: React.FC<SidenavProps> = (props) => {
         defaultSelectedKeys={[location.pathname]}
       >
         {content.map((item) => {
-          return (
-            <Item
-              key={item.route}
-              icon={<item.icon />}
-              onClick={() =>
-                setIsCollapsed((bool) => (isBrokenBreakpoint ? !bool : bool))
-              }
-            >
-              <Link to={item.route} />
-              {item.title}
-            </Item>
-          );
-        })}
+          if(item.route === "/" && (loginSuccess ? !loginSuccess : sessionStorage.getItem("user_id") === null)){
+            return (
+              <Item
+                  key={item.route}
+                  icon={<item.icon />}
+                  onClick={() =>
+                    setIsCollapsed((bool) => (isBrokenBreakpoint ? !bool : bool))
+                  }
+              >
+                  <Link to={item.route} />
+                  {item.title}
+              </Item>
+            )
+          } else if (item.route !== "/" && (loginSuccess ? loginSuccess : sessionStorage.getItem("user_id") !== null)) {
+            return (
+              <Item
+                  key={item.route}
+                  icon={<item.icon />}
+                  onClick={() =>
+                    setIsCollapsed((bool) => (isBrokenBreakpoint ? !bool : bool))
+                  }
+              >
+                  <Link to={item.route} />
+                  {item.title}
+              </Item>
+            )
+          }
+          })}
+          {(loginSuccess ? loginSuccess : sessionStorage.getItem("user_id") !== null) ? 
+          <Item 
+            key="logout" 
+            onClick={() => {
+              setIsCollapsed((bool) => (isBrokenBreakpoint ? !bool : bool));
+              setLoginSuccess(false);
+              sessionStorage.clear();
+              window.location.href = "/";
+            }
+            }>
+              Logout
+            </Item> : 
+          ""}
+          
       </Menu>
       <img className={styles.quizLogo} src={""} alt="K_Logo" />
       <div

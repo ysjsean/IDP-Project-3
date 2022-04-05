@@ -2,12 +2,23 @@ import React, {useState, useRef} from "react";
 import { Form, Input, Button } from "antd";
 import { FormInstance } from 'antd/es/form';
 import styles from "./index.module.css";
+import endpoints from "../endpoints";
 import "./index.css";
 
 const Login_Logout = (props: any) => {
+  const {
+    role,
+    setRole,
+    setLoginSuccess,
+    setUserId,
+    setUsername,
+  } = props;
+
+  console.log(props);
 
   const registerFormRef = React.createRef<FormInstance>();
   const loginFormRef = React.createRef<FormInstance>();
+  const [errorMsg, setErrorMsg] = useState(String);
 
   const tailLayout = {
     wrapperCol: { offset: 0, span: 6 },
@@ -16,22 +27,84 @@ const Login_Logout = (props: any) => {
   const onReset = () => {
     registerFormRef.current?.resetFields();
   };
+
+  const onLogin = () => {
+
+  }
+
+  const authenticate = async () => {
+    console.log(loginFormRef.current?.getFieldValue("loginUsername"));
+    const usernameField = loginFormRef.current?.getFieldValue("loginUsername");
+    const value = loginFormRef.current?.getFieldValue("loginPassword");
+
+    if (loginFormRef.current?.getFieldValue("loginUsername") !== undefined && loginFormRef.current?.getFieldValue("loginPassword") !== undefined) {
+      loginFormRef.current.submit();
+      // const response = await fetch(`/api/users/instructor/login/${usernameField}/${value}`);
+      const response = await fetch(`${endpoints.url}/api/users/instructor/login`, {
+        method: "post",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({username: usernameField, pw: value}),
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        console.log(result);
+        if (result[0].success) {
+          setErrorMsg("");
+          setLoginSuccess(true);
+          // setShowModal(false);
+          // setUsernameField("");
+          // setPasswordField("");
+          setRole(result[0].data[0].role_id);
+          setUserId(result[0].data[0].user_id);
+          setUsername(result[0].data[0].username);
+          sessionStorage.setItem("user_id", result[0].data[0].user_id);
+          sessionStorage.setItem("role_id", result[0].data[0].role_id);
+          sessionStorage.setItem("username", result[0].data[0].username);
+          loginFormRef.current?.resetFields();
+          window.location.href = "/dashboard";
+        } else {
+          setErrorMsg("The username or password you have entered is incorrect");
+          // setUsernameField("");
+          // setPasswordField("");
+          loginFormRef.current?.resetFields();
+        }
+      } else {
+        setErrorMsg("The password you have type is incorrect");
+        // setUsernameField("");
+        // setPasswordField("");
+        loginFormRef.current?.resetFields();
+      }
+    } else {
+      setErrorMsg(
+        `Please ${
+          usernameField === undefined ? "enter a username and" : ""
+        } enter a password`
+      );
+      // setUsernameField("");
+      // setPasswordField("");
+      loginFormRef.current?.resetFields();
+    }
+  };
   
   const { Item } = Form;
   return (
     <>
       <div className={styles.formMainDiv}>
-        <Form layout={"vertical"} ref={loginFormRef} className={styles.loginFormStyles}>
+        <Form onSubmitCapture={() => authenticate()} layout={"vertical"} ref={loginFormRef} className={styles.loginFormStyles}>
           <fieldset>
             <legend>Login</legend>
+            <div style={{"color": "red"}}>{errorMsg}</div>
             <Item name="loginUsername" label="Username">
               <Input />
             </Item>
-            <Item label="Password">
+            <Item name="loginPassword" label="Password">
               <Input.Password visibilityToggle={false} />
             </Item>
             <Item>
-              <Button type="primary" >Login</Button>
+              <Button type="primary" htmlType="submit">Login</Button>
             </Item>
           </fieldset>
         </Form>
