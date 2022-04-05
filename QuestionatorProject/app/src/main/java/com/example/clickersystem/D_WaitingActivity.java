@@ -23,7 +23,7 @@ public class D_WaitingActivity extends AppCompatActivity
             }
             public void onFinish()
             {
-                Intent intent = new Intent(D_WaitingActivity.this, E_AutoNextQuestionActivity.class);
+                Intent intent = new Intent(D_WaitingActivity.this, E_AnswerOptionActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                 startActivity(intent);

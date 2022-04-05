@@ -1,13 +1,18 @@
 package com.example.clickersystem;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.transition.Slide;
 
 public class B_RegisterActivity extends AppCompatActivity
@@ -17,6 +22,7 @@ public class B_RegisterActivity extends AppCompatActivity
     private EditText name, email, contact, pw, cpw;
     private String emailtext;
     private String emailPattern;
+    private ScrollView regBG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,6 +37,12 @@ public class B_RegisterActivity extends AppCompatActivity
         contact = (EditText) findViewById(R.id.contactInput);
         pw = (EditText) findViewById(R.id.passwordInput);
         cpw = (EditText) findViewById(R.id.confirmpasswordInput);
+        regBG = (ScrollView) findViewById(R.id.regPage);
+
+        AnimationDrawable animationDrawable = (AnimationDrawable) regBG.getBackground();
+        animationDrawable.setEnterFadeDuration(3000);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
 
         registeracc.setOnClickListener(new View.OnClickListener()
         {

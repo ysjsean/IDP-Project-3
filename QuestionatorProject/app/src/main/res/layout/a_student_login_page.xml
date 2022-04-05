@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_bg" >
+    android:background="@drawable/gradient_list"
+    android:id="@+id/loginPage" >
 
     <ImageView
         android:id="@+id/logoMain"
@@ -24,9 +25,8 @@
         android:layout_marginTop="20dp"
         android:text="@string/btnSignUpHere"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
+        android:textColor="#323232"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />

@@ -19,7 +19,7 @@
             android:name=".F_FinalPageActivity"
             android:exported="false" />
         <activity
-            android:name=".E_AutoNextQuestionActivity"
+            android:name=".E_AnswerOptionActivity"
             android:exported="false" />
         <activity
             android:name=".D_WaitingActivity"
