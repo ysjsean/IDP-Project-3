@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ans_option_bg"
+    tools:context=".ignorethis">
+
+    <TextView
+        android:id="@+id/qnLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/qnLabel"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/qnNumber"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/qnDescription"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/qnNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
+        android:text="@string/qnNumber"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/qnDescription"
+        android:layout_width="320dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/qnDescription"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/qnNumber"
+        app:layout_constraintTop_toBottomOf="@+id/qnLabel" />
+
+    <Button
+        android:id="@+id/btnA"
+        android:layout_width="60pt"
+        android:layout_height="30pt"
+        android:layout_marginTop="52dp"
+        android:background="#F44336"
+        android:text="@string/option_A"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toStartOf="@+id/btnB"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/qnDescription"
+        app:layout_constraintTop_toBottomOf="@+id/qnDescription" />
+
+    <Button
+        android:id="@+id/btnB"
+        android:layout_width="136dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="52dp"
+        android:background="#3F51B5"
+        android:text="@string/option_B"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="@+id/qnDescription"
+        app:layout_constraintTop_toBottomOf="@+id/qnDescription" />
+
+    <Button
+        android:id="@+id/btnC"
+        android:layout_width="60pt"
+        android:layout_height="30pt"
+        android:layout_marginTop="36dp"
+        android:background="#4CAF50"
+        android:text="@string/option_C"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        app:backgroundTint="@null"
+        app:layout_constraintStart_toStartOf="@+id/btnA"
+        app:layout_constraintTop_toBottomOf="@+id/btnA" />
+
+    <Button
+        android:id="@+id/btnD"
+        android:layout_width="60pt"
+        android:layout_height="30pt"
+        android:layout_marginTop="36dp"
+        android:background="#FFC107"
+        android:text="@string/option_D"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="@+id/btnB"
+        app:layout_constraintTop_toBottomOf="@+id/btnB" />
+
+    <TextView
+        android:id="@+id/countdownTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/countdownTimer"
+        android:textAlignment="center"
+        android:textColor="#FF0000"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnD"
+        app:layout_constraintVertical_bias="0.512" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

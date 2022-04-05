@@ -1,0 +1,33 @@
+<resources>
+    <string name="api_url">http://10.27.158.242:8001</string>
+    <string name="app_name">ClickerSystem</string>
+
+    <string name="mainLogo"> </string>
+    <string name="btnSignUpHere">No account? Sign up here</string>
+
+    <string name="labelWelcome">Welcome,</string>
+    <string name="labelName">*name of user*</string>
+    <string name="labelEnterSessionId">Enter Session ID:</string>
+    <string name="btnEnterQuiz">ENTER QUIZ</string>
+
+    <string name="waitingRoomLabel">Waiting for session to start. . .</string>
+
+    <string name="timer">3</string>
+
+    <string name="qnLabel">Question:</string>
+    <string name="qnNumber">*Question number here*</string>
+    <string name="qnDescription">*Description here*</string>
+    <string name="option_A">A</string>
+    <string name="option_B">B</string>
+    <string name="option_C">C</string>
+    <string name="option_D">D</string>
+    <string name="countdownTimer">*seconds left*</string>
+
+    <string name="completionLabel">You have completed the quiz</string>
+    <string name="finalscoreLabel">Your Total Score is:</string>
+    <string name="finalscore">*Your Score*</string>
+    <string name="rankingLabel">Rank:</string>
+    <string name="ranking">*Your Rank*</string>
+    <string name="btnTakeAnotherQuiz">Take Another Quiz</string>
+    <string name="btnLogout">Log Out</string>
+</resources>
