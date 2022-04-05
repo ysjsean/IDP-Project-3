@@ -1,23 +1,12 @@
-package com.example.clickersystem;
+package com.example.Questionator;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-import android.graphics.drawable.shapes.RectShape;
-import android.graphics.drawable.shapes.RoundRectShape;
-import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.shape.ShapePath;
 
 public class E_AnswerOptionActivity extends AppCompatActivity
 {

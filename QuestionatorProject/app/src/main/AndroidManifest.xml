@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.clickersystem">
+    package="com.example.Questionator">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,25 +13,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClickerSystem">
         <activity
-            android:name=".C_EnterSessionIDActivity"
+            android:name="com.example.Questionator.C_EnterSessionIDActivity"
             android:exported="false" />
         <activity
-            android:name=".F_FinalPageActivity"
+            android:name="com.example.Questionator.F_FinalPageActivity"
             android:exported="false" />
         <activity
-            android:name=".E_AnswerOptionActivity"
+            android:name="com.example.Questionator.E_AnswerOptionActivity"
             android:exported="false" />
         <activity
-            android:name=".D_WaitingActivity"
+            android:name="com.example.Questionator.D_WaitingActivity"
             android:exported="false" />
         <activity
-            android:name=".ReferenceOnly_CountdownActivity"
+            android:name="com.example.Questionator.ReferenceOnly_CountdownActivity"
             android:exported="false" />
         <activity
-            android:name=".B_RegisterActivity"
+            android:name="com.example.Questionator.B_RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".A_LoginPageActivity"
+            android:name="com.example.Questionator.A_LoginPageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

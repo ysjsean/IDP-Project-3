@@ -1,21 +1,20 @@
-package com.example.clickersystem;
+package com.example.Questionator;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class A_LoginPageActivity extends AppCompatActivity
 {
     private Button login;
     private TextView signuphere;
-    private ConstraintLayout loginBG;
+    private ScrollView loginBG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,7 @@ public class A_LoginPageActivity extends AppCompatActivity
 
         login = (Button) findViewById(R.id.btnLogin);
         signuphere = (TextView) findViewById(R.id.btnSignUpHere);
-        loginBG = (ConstraintLayout) findViewById(R.id.loginPage);
+        loginBG = (ScrollView) findViewById(R.id.loginPage);
 
         AnimationDrawable animationDrawable = (AnimationDrawable) loginBG.getBackground();
         animationDrawable.setEnterFadeDuration(3000);

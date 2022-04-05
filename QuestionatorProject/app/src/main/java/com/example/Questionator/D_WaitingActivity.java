@@ -1,4 +1,4 @@
-package com.example.clickersystem;
+package com.example.Questionator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
