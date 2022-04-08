@@ -1,0 +1,13 @@
+"filename", "language", "JavaScript", "JSON", "comment", "blank", "total"
+"d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\config.js", "JavaScript", 10, 0, 1, 0, 11
+"d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\helper.js", "JavaScript", 13, 0, 0, 2, 15
+"d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\index.js", "JavaScript", 37, 0, 2, 6, 45
+"d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\package-lock.json", "JSON", 0, 1298, 0, 1, 1299
+"d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\package.json", "JSON", 0, 18, 0, 1, 19
+"d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\routes\answers.js", "JavaScript", 84, 0, 13, 21, 118
+"d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\routes\questions.js", "JavaScript", 126, 0, 33, 34, 193
+"d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\routes\reponses.js", "JavaScript", 21, 0, 1, 6, 28
+"d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\routes\topics.js", "JavaScript", 129, 0, 13, 26, 168
+"d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\routes\users.js", "JavaScript", 62, 0, 12, 22, 96
+"d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\services\db.js", "JavaScript", 8, 0, 0, 3, 11
+"Total", "-", 490, 1316, 75, 122, 2003

@@ -3,6 +3,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import styles from "./index.module.css";
+import logo from "./logo_main.png"
 
 interface SidenavProps {
   isCollapsed: boolean;
@@ -52,7 +53,9 @@ const Sidenav: React.FC<SidenavProps> = (props) => {
       collapsed={isCollapsed}
     >
       <div style={{ textAlign: "center", padding: "6px 0" }}>
-        <p style={{ width: "100%", height: "auto", padding: "10px 24px 5px", color: "white", fontSize: 32, display: "inline" }}>KAHOOT</p>
+        <p style={{ width: "100%", height: "auto", padding: "0", color: "white", fontSize: 32, display: "block", background: "white" }}>
+          <img src={logo} width={150} alt="logo" />
+        </p>
       </div>
       <Menu
         theme="dark"
@@ -109,7 +112,7 @@ const Sidenav: React.FC<SidenavProps> = (props) => {
         className={styles.footer}
         style={{ display: isCollapsed ? "none" : "" }}
       >
-        © 2020 KAHOOT. All rights reserved.
+        © 2022 Questionator. All rights reserved.
       </div>
     </Sider>
   );

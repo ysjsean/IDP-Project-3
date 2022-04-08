@@ -1,0 +1,38 @@
+Date : 2022-04-07 12:12:26
+Directory : d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql
+Total : 11 files,  1806 codes, 75 comments, 122 blanks, all 2003 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          2 |      1,316 |          0 |          2 |      1,318 |
+| JavaScript |          9 |        490 |         75 |        120 |        685 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                    | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                       |         11 |      1,806 |         75 |        122 |      2,003 |
+| routes                                                                  |          5 |        422 |         72 |        109 |        603 |
+| services                                                                |          1 |          8 |          0 |          3 |         11 |
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\config.js           | JavaScript |         10 |          1 |          0 |         11 |
+| d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\helper.js           | JavaScript |         13 |          0 |          2 |         15 |
+| d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\index.js            | JavaScript |         37 |          2 |          6 |         45 |
+| d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\package-lock.json   | JSON       |      1,298 |          0 |          1 |      1,299 |
+| d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\package.json        | JSON       |         18 |          0 |          1 |         19 |
+| d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\routes\answers.js   | JavaScript |         84 |         13 |         21 |        118 |
+| d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\routes\questions.js | JavaScript |        126 |         33 |         34 |        193 |
+| d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\routes\reponses.js  | JavaScript |         21 |          1 |          6 |         28 |
+| d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\routes\topics.js    | JavaScript |        129 |         13 |         26 |        168 |
+| d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\routes\users.js     | JavaScript |         62 |         12 |         22 |         96 |
+| d:\NTU\IDP\project3\IDP-Project-3\rest_server_mysql\services\db.js      | JavaScript |          8 |          0 |          3 |         11 |
+| Total                                                                   |            |      1,806 |         75 |        122 |      2,003 |
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+

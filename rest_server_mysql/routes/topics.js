@@ -19,16 +19,54 @@ var routes = function () {
         })
     });
 
+    router.get('/check/:session_id', function(req, res, next) {
+        var session_id = req.params.session_id;
+        var query = 'select * from topics where session_id = ' + session_id;
+        db.query(query, function(err, rows, fields) {
+            if (err) {
+                res.status(500).json({success:true, data: err.message});
+            } else {
+                if(rows.length == 0){
+                    res.status(200).json({success:false, data: rows});
+                } else {
+                    res.status(200).json({success:true, data: rows});
+                }
+            /*If you are creating api then get response in json format*/
+                
+            }
+
+            /*If you want response as json then comment below line*/
+            // res.render('items', { title: 'Items', items: rows});
+        })
+    });
+
     router.get('/no_session/:user_id', function(req, res, next) {
         var user_id = req.params.user_id;
 
-        var query = `select * from topics where user_id = ${user_id} and not session_id`;
+        var query = `select * from topics where user_id = ${user_id} and not session_id or session_id is null`;
         db.query(query, function(err, rows, fields) {
             if (err) {
-                res.send(err.message);
+                res.json({success: false, message: err.message});
             } else {
             /*If you are creating api then get response in json format*/
-                res.json(rows);
+                res.json({success:true, data: rows});
+            }
+
+            /*If you want response as json then comment below line*/
+            // res.render('items', { title: 'Items', items: rows});
+        })
+    });
+
+    router.get('/have_session/:user_id', function(req, res, next) {
+        var user_id = req.params.user_id;
+
+        var query = `select * from topics where user_id = ${user_id} and session_id <> '' and session_id is not null`;
+        db.query(query, function(err, rows, fields) {
+            if (err) {
+                res.json({success: false, message: err.message});
+            } else {
+            /*If you are creating api then get response in json format*/
+                res.json({success:true, data: rows});
             }
 
             /*If you want response as json then comment below line*/
@@ -44,10 +82,10 @@ var routes = function () {
         db.query(query, function(err, rows, fields) {
             if (err) {
                 db.rollback();
-                res.status(500).json({error: err});
+                res.status(500).json({success:false, error: err});
             } else
             /*If you are creating api then get response in json format*/
-                res.status(200).json({message: "Topic inserted successfully!"});
+                res.status(200).json({success:true, message: "Topic inserted successfully!"});
 
         })
     });
@@ -80,12 +118,14 @@ var routes = function () {
         db.query(query, function(err, rows, fields) {
             if (err) {
                 db.rollback();
-                res.status(500).json({error: err});
+                res.status(500).json({success: false, error: err});
             } else {
                 if(rows.affectedRows == 0)
-                    res.status(500).json({message: "Topic deletion failed!"});
-                else
-                    res.status(200).json({message: "Topic deleted successfully!", rows: rows});
+                    res.status(500).json({success: false, message: "Topic deletion failed!"});
+                else {
+                    res.status(200).json({success: true, message: "Topic deleted successfully!", rows: rows});
+                }
+                    
             }
         })
     });

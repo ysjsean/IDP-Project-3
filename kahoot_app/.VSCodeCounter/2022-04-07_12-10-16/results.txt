@@ -1,0 +1,84 @@
+Date : 2022-04-07 12:10:16
+Directory : d:\NTU\IDP\project3\IDP-Project-3\kahoot_app
+Total : 34 files,  34738 codes, 871 comments, 202 blanks, all 35811 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          2 |     32,992 |          0 |          2 |     32,994 |
+| TypeScript React   |         13 |      1,478 |        807 |        135 |      2,420 |
+| CSS                |          6 |         88 |          2 |         14 |        104 |
+| Markdown           |          1 |         49 |          0 |         22 |         71 |
+| JavaScript         |          5 |         48 |         27 |         16 |         91 |
+| TypeScript         |          3 |         37 |          5 |          9 |         51 |
+| HTML               |          1 |         22 |         24 |          1 |         47 |
+| JSON with Comments |          1 |         19 |          0 |          1 |         20 |
+| Shell Script       |          1 |          4 |          6 |          2 |         12 |
+| Less               |          1 |          1 |          0 |          0 |          1 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                   |         34 |     34,738 |        871 |        202 |     35,811 |
+| public                                                                                              |          5 |         54 |         51 |         16 |        121 |
+| public\js                                                                                           |          4 |         32 |         27 |         15 |         74 |
+| src                                                                                                 |         23 |      1,604 |        814 |        158 |      2,576 |
+| src\layout                                                                                          |          6 |        276 |          5 |         21 |        302 |
+| src\layout\Content                                                                                  |          2 |         77 |          4 |          5 |         86 |
+| src\layout\Header                                                                                   |          2 |         55 |          0 |          6 |         61 |
+| src\layout\Nav                                                                                      |          2 |        144 |          1 |         10 |        155 |
+| src\pages                                                                                           |         12 |      1,237 |        802 |        125 |      2,164 |
+| src\pages\Dashboard                                                                                 |          8 |      1,066 |        725 |        100 |      1,891 |
+| src\pages\Dashboard\components                                                                      |          6 |        846 |        699 |         74 |      1,619 |
+| src\pages\Dashboard\components\AddQuestion                                                          |          1 |        146 |         11 |         10 |        167 |
+| src\pages\Dashboard\components\AddTopic                                                             |          1 |         52 |          8 |          7 |         67 |
+| src\pages\Dashboard\components\ChoiceTable                                                          |          1 |        188 |        271 |         19 |        478 |
+| src\pages\Dashboard\components\QuestionTable                                                        |          1 |        226 |        250 |         14 |        490 |
+| src\pages\Dashboard\components\Statistics                                                           |          1 |         29 |          1 |          7 |         37 |
+| src\pages\Dashboard\components\TopicTable                                                           |          1 |        205 |        158 |         17 |        380 |
+| src\pages\Login-Logout                                                                              |          3 |        155 |         76 |         21 |        252 |
++-----------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                            | language           | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\README.md                                              | Markdown           |         49 |          0 |         22 |         71 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\craco.config.js                                        | JavaScript         |         16 |          0 |          1 |         17 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\package-lock.json                                      | JSON               |     32,941 |          0 |          1 |     32,942 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\package.json                                           | JSON               |         51 |          0 |          1 |         52 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\public\index.html                                      | HTML               |         22 |         24 |          1 |         47 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\public\js\config.js                                    | JavaScript         |         26 |         16 |         15 |         57 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\public\js\easeljs.min.js                               | JavaScript         |          3 |         11 |          0 |         14 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\public\js\eventemitter2.min.js                         | JavaScript         |          1 |          0 |          0 |          1 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\public\js\mjpegcanvas.min.js                           | JavaScript         |          2 |          0 |          0 |          2 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\setup.sh                                               | Shell Script       |          4 |          6 |          2 |         12 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\App.less                                           | Less               |          1 |          0 |          0 |          1 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\App.tsx                                            | TypeScript React   |         62 |          3 |          6 |         71 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\AppContent.ts                                      | TypeScript         |         19 |          3 |          4 |         26 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\index.tsx                                          | TypeScript React   |          7 |          0 |          1 |          8 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\layout\Content\index.module.css                    | CSS                |          3 |          2 |          1 |          6 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\layout\Content\index.tsx                           | TypeScript React   |         74 |          2 |          4 |         80 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\layout\Header\index.module.css                     | CSS                |          9 |          0 |          1 |         10 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\layout\Header\index.tsx                            | TypeScript React   |         46 |          0 |          5 |         51 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\layout\Nav\index.module.css                        | CSS                |         29 |          0 |          4 |         33 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\layout\Nav\index.tsx                               | TypeScript React   |        115 |          1 |          6 |        122 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\Dashboard\components\AddQuestion\index.tsx   | TypeScript React   |        146 |         11 |         10 |        167 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\Dashboard\components\AddTopic\index.tsx      | TypeScript React   |         52 |          8 |          7 |         67 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\Dashboard\components\ChoiceTable\index.tsx   | TypeScript React   |        188 |        271 |         19 |        478 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\Dashboard\components\QuestionTable\index.tsx | TypeScript React   |        226 |        250 |         14 |        490 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\Dashboard\components\Statistics\index.tsx    | TypeScript React   |         29 |          1 |          7 |         37 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\Dashboard\components\TopicTable\index.tsx    | TypeScript React   |        205 |        158 |         17 |        380 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\Dashboard\index.css                          | CSS                |         35 |          0 |          5 |         40 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\Dashboard\index.tsx                          | TypeScript React   |        185 |         26 |         21 |        232 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\Login-Logout\index.css                       | CSS                |          3 |          0 |          1 |          4 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\Login-Logout\index.module.css                | CSS                |          9 |          0 |          2 |         11 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\Login-Logout\index.tsx                       | TypeScript React   |        143 |         76 |         18 |        237 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\pages\endpoints.ts                                 | TypeScript         |         16 |          1 |          4 |         21 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\src\react-app-env.d.ts                                 | TypeScript         |          2 |          1 |          1 |          4 |
+| d:\NTU\IDP\project3\IDP-Project-3\kahoot_app\tsconfig.json                                          | JSON with Comments |         19 |          0 |          1 |         20 |
+| Total                                                                                               |                    |     34,738 |        871 |        202 |     35,811 |
++-----------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

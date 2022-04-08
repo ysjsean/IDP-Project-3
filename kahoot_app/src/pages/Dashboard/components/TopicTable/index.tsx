@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DeleteOutlined, SaveOutlined, EditOutlined } from "@ant-design/icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
 import endpoints from "../../../endpoints";
+import AddTopic from "../AddTopic";
 // import AddWorld from "../AddWorld";
 
 interface TableProps {
@@ -73,6 +74,8 @@ const TopicTable: React.FC<TableProps> = ({
   const [editingKey, setEditingKey] = useState("");
   const isEditing = (record: any) => record.key === editingKey;
   const [form] = Form.useForm();
+
+  const [visible, setVisible] = useState(false);
 
   const edit = (record: any) => {
     console.log(record);
@@ -164,18 +167,18 @@ const TopicTable: React.FC<TableProps> = ({
         ) : (
           <Space size="large">
             <Typography.Link
-              disabled={editingKey !== "" || record.session_id !== ""}
-              onClick={() => (editingKey !== "" || record.session_id !== "" ? null : edit(record))}
+              disabled={editingKey !== "" || (record.session_id !== "" && record.session_id !== null)}
+              onClick={() => (editingKey !== "" ||  (record.session_id !== "" && record.session_id !== null) ? null : edit(record))}
             >
               <EditOutlined style={{ fontSize: 20 }} />
             </Typography.Link>
             {Object.keys(topicsTableData).length >= 1 ? (
               <Popconfirm
                 title="Sure to delete?"
-                onConfirm={() => handleDelete(record.key)}
-                disabled={editingKey !== "" || record.session_id !== ""}
+                onConfirm={() => handleDelete(record.topic_id)}
+                disabled={editingKey !== "" || (record.session_id !== "" && record.session_id !== null)}
               >
-                <Typography.Link disabled={editingKey !== "" || record.session_id !== ""}>
+                <Typography.Link disabled={editingKey !== "" ||  (record.session_id !== "" && record.session_id !== null)}>
                   <DeleteOutlined style={{ fontSize: 20 }} />
                 </Typography.Link>
               </Popconfirm>
@@ -196,10 +199,39 @@ const TopicTable: React.FC<TableProps> = ({
       className: "table-column",
       width: 50,
       render: (_: any, record: any) => {
-        return record.session_id === "" ? <Button type="primary" onClick={()=>{handleAddSession(record)}}>Start</Button> : ""
+        return record.session_id === "" || record.session_id === null ? <Button type="primary" onClick={()=>{handleAddSession(record)}}>Start</Button> : ""
       }
     },
   ];
+
+  const onCreate = async (name:String) => {
+    // console.log('Received values of form: ', question);
+  
+    const temp = {
+        "user_id": sessionStorage.getItem("user_id"),
+        "name": name,
+    }
+    // console.log(temp);
+    const response = await fetch(
+        `${endpoints.url}/api/topics/`,
+            {
+                method: "post",
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json",
+                },
+                body:JSON.stringify(temp)
+            }
+        );
+        const out = await response.json();
+        if (out.success) {
+           getAllContents();
+        } else {
+            alert(out.message);
+        }
+  
+    setVisible(false);
+  };
 
   const handleAddSession = async (data: any) => {
     const randomNo = Math.floor(1000 + Math.random() * 9000);
@@ -222,13 +254,18 @@ const TopicTable: React.FC<TableProps> = ({
   };
 
   const handleDelete = async (key: any) => {
-    const response = await fetch(`/api/database/deleteWorld/${key}`, {
+    console.log(key);
+    const response = await fetch(`${endpoints.url}/api/topics/${key}`, {
       method: "delete",
       headers: {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        "user_id": sessionStorage.getItem("user_id"),
+      }),
     });
+    
     const out = await response.json();
     if (out.success) {
       getAllContents();
@@ -237,21 +274,21 @@ const TopicTable: React.FC<TableProps> = ({
     }
   };
 
-  const handleAdd = async (world_name: any) => {
-    const response = await fetch(`/api/database/addWorld/${world_name}`, {
-      method: "post",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-    });
-    const out = await response.json();
-    if (out.success) {
-      getAllContents();
-    } else {
-      alert(out.message);
-    }
-  };
+  // const handleAdd = async (world_name: any) => {
+  //   const response = await fetch(`${endpoints.url}/api/database/addWorld/${world_name}`, {
+  //     method: "post",
+  //     headers: {
+  //       Accept: "application/json, text/plain, */*",
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   const out = await response.json();
+  //   if (out.success) {
+  //     getAllContents();
+  //   } else {
+  //     alert(out.message);
+  //   }
+  // };
 
   const mergedColumns = columns.map((col: any) => {
     if (!col.editable) {
@@ -289,30 +326,36 @@ const TopicTable: React.FC<TableProps> = ({
           Topic Table
         </span>
 
-        <Popover
-          trigger="click"
-          placement="rightTop"
-          // content={
-          //   <AddWorld
-          //     handleAdd={handleAdd}
-          //     errorMsgForWorldName={errorMsgForWorldName}
-          //     setErrorMsgForWorldName={setErrorMsgForWorldName}
-          //   />
-          // }
-        >
-          <Button
+        <AddTopic
+            visible={visible}
+            onCreate={onCreate}
+            onCancel={() => {
+              setVisible(false);
+            }}
+        />
+        <Button
             type="primary"
             id="addTopicBtn"
             style={{
               marginBottom: 16,
             }}
             onClick={() => {
-              setErrorMsgForWorldName("");
+              setVisible(true);
+              // setErrorMsgForWorldName("");
             }}
           >
             Add Topic
           </Button>
-        </Popover>
+
+        {/* <Popover
+          trigger="click"
+          placement="rightTop"
+          content={
+            
+          }
+        >
+          
+        </Popover> */}
         <Form form={form} component={false}>
           <Table
             components={{
