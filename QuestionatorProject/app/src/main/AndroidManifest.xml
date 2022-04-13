@@ -7,14 +7,21 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_main"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_main"
         android:supportsRtl="true"
         android:theme="@style/Theme.ClickerSystem">
         <activity
             android:name="com.example.Questionator.C_EnterSessionIDActivity"
-            android:exported="false" />
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.example.Questionator.F_FinalPageActivity"
             android:exported="false" />
@@ -32,12 +39,8 @@
             android:exported="false" />
         <activity
             android:name="com.example.Questionator.A_LoginPageActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
