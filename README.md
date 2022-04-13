@@ -2,12 +2,12 @@
 
 ## Technologies Used
 
-<b>React</b> - Frontend Web framework
-<b>Typescript</b> - Static typing add on to javascript
-<b>ANTD Design</b> - Component library for React
-<b>Font Awesome</b> - Icons Library
-<b>Java</b> - Android App
-<b>Node.js / Express</b> - REST API server
+<b>React</b> - Frontend Web framework <br/>
+<b>Typescript</b> - Static typing add on to javascript <br/>
+<b>ANTD Design</b> - Component library for React <br/>
+<b>Font Awesome</b> - Icons Library <br/>
+<b>Java</b> - Android App <br/>
+<b>Node.js / Express</b> - REST API server <br/>
 
 ## Setup Development Environment
 
