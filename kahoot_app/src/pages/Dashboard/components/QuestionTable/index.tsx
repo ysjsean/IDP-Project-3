@@ -1,9 +1,10 @@
     import React, { useState } from "react";
-    import { Select, Button, Input, Row, Col, Table, Popover, Form, Typography, Space, Popconfirm } from "antd";
+    import { Select, Button, Input, Row, Col, Table, Popover, Form, Typography, Space, Popconfirm, Modal } from "antd";
     import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
     import { DeleteOutlined, SaveOutlined, EditOutlined } from "@ant-design/icons";
     import { faBan } from "@fortawesome/free-solid-svg-icons";
     import endpoints from "../../../endpoints";
+    import AddQuestion from "../AddQuestion";
     // import "./index.css";
 
     interface WayPointProps {
@@ -11,6 +12,13 @@
             [key: string]: number;
         }[];
         getAllTopics: () => Promise<void>;
+        getQuestionTableContents: (topic_id: any) => Promise<void>;
+        isLoaded: boolean;
+        setIsloaded: React.Dispatch<React.SetStateAction<boolean>>;
+        getChoiceTableContents: (topic_id: any) => Promise<void>;
+        topicsNoSessionTableData: {
+            [key: string]: number;
+        }[];
     //   ros: any;
     //   mapSelected: string;
     //   worldSelected: string;
@@ -37,7 +45,13 @@
 
     const QuestionTable: React.FC<WayPointProps> = (props) => {
     const {
-        questionsTableData
+        questionsTableData,
+        getAllTopics,
+        getQuestionTableContents,
+        setIsloaded,
+        isLoaded,
+        getChoiceTableContents,
+        topicsNoSessionTableData
         // ros,
         // mapSelected,
         // worldSelected,
@@ -54,19 +68,98 @@
     //   const { Panel } = Collapse;
 
     const [wayPointNameInput, setWayPointNameInput] = useState("");
-    const [defaultWayPointName, setDefaultWayPointName] = useState("");
-    const [isTableExpanded, setIsTableExpanded] = useState(false);
+    const [selectedTopic, setSelectedTopic] = useState("");
+    const [selectedTopicId, setSelectedTopicId] = useState();
     const [errorMsgForWorldName, setErrorMsgForWorldName] = useState("");
     const [editingKey, setEditingKey] = useState("");
     const isEditing = (record: any) => record.key === editingKey;
     const [form] = Form.useForm();
 
-    const toggle = (key: any) => {
-        setIsTableExpanded(false);
-        if (key[0] === "showWayPointTable") {
-        setIsTableExpanded(true);
+    const [visible, setVisible] = useState(false);
+
+    const onCreate = async (questionNo: any, question:any, choiceA:any, choiceB:any, choiceC:any, choiceD:any, isCorrect:any) => {
+        // console.log('Received values of form: ', question);
+
+        const temp = {
+            "user_id": sessionStorage.getItem("user_id"),
+            "topic_id": selectedTopic,
+            "question_no": questionNo,
+            "description": question
         }
+        // console.log(temp);
+        const response = await fetch(
+            `${endpoints.url}/api/questions/`,
+                {
+                    method: "post",
+                    headers: {
+                        Accept: "application/json, text/plain, */*",
+                        "Content-Type": "application/json",
+                    },
+                    body:JSON.stringify(temp)
+                }
+            );
+            const out = await response.json();
+            if (out.success) {
+                const response = await fetch(
+                    `${endpoints.url}/api/questions/${selectedTopic}/${questionNo}/id`,
+                        {
+                            method: "get",
+                            headers: {
+                                Accept: "application/json, text/plain, */*",
+                                "Content-Type": "application/json",
+                            }
+                        }
+                    );
+                
+                const result = await response.json(); 
+                if(result.success){
+                    const question_id = result.data[0].question_id;
+                    console.log(question_id);
+                    addOptions(question_id, 'A', choiceA, isCorrect === 'A' ? 1 : 0);
+                    addOptions(question_id, 'B', choiceB, isCorrect === 'B' ? 1 : 0);
+                    addOptions(question_id, 'C', choiceC, isCorrect === 'C' ? 1 : 0);
+                    addOptions(question_id, 'D', choiceD, isCorrect === 'D' ? 1 : 0);
+                }
+            } else {
+                alert(out.message);
+            }
+
+        setVisible(false);
     };
+
+    const addOptions = async (question_id:any, choice:any, answer: any, isCorrect: any) => {
+        const temp = {
+            "option": choice,
+            "description": answer,
+            "isCorrect": isCorrect,
+            "question_id": question_id
+        }
+        // console.log(temp);
+        const response = await fetch(
+            `${endpoints.url}/api/answers/${question_id}`,
+                {
+                    method: "post",
+                    headers: {
+                        Accept: "application/json, text/plain, */*",
+                        "Content-Type": "application/json",
+                    },
+                    body:JSON.stringify(temp)
+                }
+            );
+            const out = await response.json();
+            if (out.success) {
+                
+            } else {
+                alert(out.message);
+            }
+    }
+
+    // const toggle = (key: any) => {
+    //     setIsTableExpanded(false);
+    //     if (key[0] === "showWayPointTable") {
+    //     setIsTableExpanded(true);
+    //     }
+    // };
 
     const edit = (record: any) => {
         console.log(record);
@@ -93,35 +186,7 @@
         },
         {
             title: <strong>Question Name</strong>,
-            dataIndex: "question_name",
-            className: "table-column",
-            width: 150,
-            editable: true,
-        },
-        {
-            title: <strong>Choice A</strong>,
-            dataIndex: "choice_a",
-            className: "table-column",
-            width: 150,
-            editable: true,
-        },
-        {
-            title: <strong>Choice B</strong>,
-            dataIndex: "choice_b",
-            className: "table-column",
-            width: 150,
-            editable: true,
-        },
-        {
-            title: <strong>Choice C</strong>,
-            dataIndex: "choice_c",
-            className: "table-column",
-            width: 150,
-            editable: true,
-        },
-        {
-            title: <strong>Choice D</strong>,
-            dataIndex: "choice_d",
+            dataIndex: "question",
             className: "table-column",
             width: 150,
             editable: true,
@@ -268,29 +333,6 @@
         }
     };
 
-    //   const save = () => {
-    //     var name = wayPointNameInput ? wayPointNameInput : defaultWayPointName;
-    //     console.log("wayPointNameInput " + wayPointNameInput);
-    //     var waypointObjectToSave: any = {};
-    //     // waypointObjectToSave["waypoints"] = wayPointsList;
-
-    //     if (defaultWayPointName) {
-    //       if (defaultWayPointName === name) {
-    //         if (
-    //           window.confirm(
-    //             "Are you sure you want to overwrite the existing file name?"
-    //           )
-    //         ) {
-    //         //   saveToFile(name, waypointObjectToSave);
-    //         }
-    //       } else {
-    //         // saveToFile(name, waypointObjectToSave);
-    //       }
-    //     } else {
-    //     //   saveToFile(name, waypointObjectToSave);
-    //     }
-    //   };
-
     const handleAddSession = async (data: any) => {
         const randomNo = Math.floor(1000 + Math.random() * 9000);
         const response = await fetch(`${endpoints.url}/api/topics/${data.topic_id}/start/${randomNo}`, {
@@ -323,59 +365,18 @@
         if (out.success) {
         //   getAllContents();
         } else {
-        alert(out.message);
+            alert(out.message);
         }
     };
 
-    //   const saveToFile = (name: string, waypointObjectToSave: any) => {
-    //     fetch(`/api/navigation/${worldSelected}/${mapSelected}/${name}`, {
-    //       method: "post",
-    //       headers: {
-    //         Accept: "application/json, text/plain, */*",
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(waypointObjectToSave),
-    //     }).then(function (data) {
-    //       console.log(data);
-    //       if (data.status === 200) {
-    //         setWayPointNameInput("");
-    //         alert("Waypoints saved!");
-    //       } else {
-    //         alert("Error occured. If persist, please contact your adminstrator");
-    //       }
-    //     });
-    //   };
-
-    //   const columns = [
-    //     {
-    //       title: "#",
-    //       dataIndex: "key",
-    //       className: "table-column",
-    //       width: 50,
-    //       fixed: true,
-    //     },
-    //     {
-    //       title: "x",
-    //       dataIndex: "x",
-    //       className: "table-column",
-    //       width: 150,
-    //     },
-    //     {
-    //       title: "y",
-    //       dataIndex: "y",
-    //       className: "table-column",
-    //       width: 150,
-    //     },
-    //     {
-    //       title: <div>&#952;</div>,
-    //       dataIndex: "z",
-    //       className: "table-column",
-    //       width: 150,
-    //     },
-    //   ];
-
     return (
-        <div>
+        <div
+            style={{
+            background: "#fff",
+            padding: 16,
+            borderRadius: 3,
+            }}
+        >
         <span
             style={{
             color: "rgba(0, 0, 0, 0.45)",
@@ -383,38 +384,26 @@
             marginBottom: 10,
             }}
         >
-            Waypoints
+            Topics
         </span>
         <Row gutter={[24, 0]}>
             <Col span={18}>
             <Select
-                placeholder="Load Waypoints"
+                placeholder="Load Topics"
                 // disabled={flag}
                 onClick={() => {
-
-                //   const getAllWayPoint = async () => {
-                //     const res = await fetch(
-                //       `/api/navigation/${worldSelected}/${mapSelected}/waypoints`
-                //     );
-                //     if (res.status === 200) {
-                //       const posts = await res.json();
-                //       console.log(posts);
-                //       setDropdownWayPoint(posts);
-                //     } else {
-                //       console.log(
-                //         `${res.status} occured when trying to access "/api/navigation/${worldSelected}/${mapSelected}/waypoints"`
-                //       );
-                //     }
-                //   };
-                //   getAllWayPoint();
+                    getAllTopics();
                 }}
-                onChange={(value) => {
-                setDefaultWayPointName(value.toString());
+                onChange={(value, data:any) => {
+                // setDefaultWayPointName(value.toString());
+                    setSelectedTopic(data.key.toString());
+                    // setSelectedTopicId(data)
+                    setIsloaded(false);
                 }}
                 style={{ width: "100%", marginBottom: 10 }}
             >
                 {
-                    questionsTableData.map((value)=>(
+                    topicsNoSessionTableData.map((value)=>(
                         <Option
                             key={value["topic_id"]}
                             value={value["name"]}>
@@ -426,152 +415,71 @@
             </Col>
             <Col span={6}>
             <Button
-                id="loadWayPointBtn"
+                id="loadQuestionsBtn"
                 type="primary"
                 style={{ padding: 0 }}
                 block
                 // disabled={flag || defaultWayPointName.length === 0}
                 onClick={() => {
-                const getAllWayPointList = async () => {
-                    // const res = await fetch(
-                    //   `/api/navigation/${worldSelected}/${mapSelected}/${defaultWayPointName}`
-                    // );
-
-                    // if (res.status === 200) {
-                    //   const posts = await res.json();
-
-                    //   for (const key in posts) {
-                    //     let a: any;
-
-                    //     a = {
-                    //       x: posts[key][0],
-                    //       y: posts[key][1],
-                    //       z: posts[key][2],
-                    //     };
-
-                    //     fakeRobotMarker.x = a.x;
-                    //     fakeRobotMarker.y = a.y;
-
-                    //     robotMarker.visible = true;
-                    //     fakeRobotMarker.visible = false;
-                    //     // endpoints.addWaypoint(ros, a);
-                    //   }
-                    // } else {
-                    //   console.log(
-                    //     `${res.status} occured when trying to access "/api/navigation/${worldSelected}/${mapSelected}/${defaultWayPointName}"`
-                    //   );
-                    // }
-
-                    // console.log("WayPointList");
-                    // console.log("...........");
-                    // console.log(wayPointsList);
-                    // console.log("...........");
-                };
-                getAllWayPointList();
+                    getQuestionTableContents(selectedTopic);
+                    getChoiceTableContents(selectedTopic);
+                    selectedTopic && setIsloaded(true);
                 }}
             >
                 Load
             </Button>
             </Col>
         </Row>
-        {/* <Collapse ghost onChange={(value) => toggle(value)}>
-            <Panel
-                header="Test"
-            //   header={
-            //     wayPointsTableData.length > 0
-            //       ? `${isTableExpanded ? "Hide" : "Show"} details for ${
-            //           wayPointsTableData.length
-            //         } waypoint(s)`
-            //       : `${isTableExpanded ? "Hide" : "Show"} details for 0 waypoint(s)`
-            //   }
-            key="showWayPointTable"
-            > */}
-            <span
-            style={{
-                color: "rgba(0, 0, 0, 0.45)",
-                display: "block",
-                marginLeft: 4,
-                marginBottom: 10,
-            }}
-            >
-            Topic Table
-            </span>
-
-            <Popover
-            trigger="click"
-            placement="rightTop"
-            // content={
-            //   <AddWorld
-            //     handleAdd={handleAdd}
-            //     errorMsgForWorldName={errorMsgForWorldName}
-            //     setErrorMsgForWorldName={setErrorMsgForWorldName}
-            //   />
-            // }
-            >
-            <Button
-                type="primary"
-                id="addTopicBtn"
+            {isLoaded && 
+            <>
+                <span
                 style={{
-                marginBottom: 16,
+                    color: "rgba(0, 0, 0, 0.45)",
+                    display: "block",
+                    marginLeft: 4,
+                    marginBottom: 10,
                 }}
-                onClick={() => {
-                setErrorMsgForWorldName("");
-                }}
-            >
-                Add Topic
-            </Button>
-            </Popover>
-            <Form form={form} component={false}>
-            <Table
-                components={{
-                body: {
-                    cell: EditableCell,
-                },
-                }}
-                className="topicTable"
-                columns={mergedColumns}
-                tableLayout="auto"
-                // dataSource={topicsTableData}
-                pagination={false}
-                bordered
-            />
-            </Form>
-
-            <br />
-            <Row gutter={[24, 0]}>
-                <Col span={18}>
-                <Input
-                    type="text"
-                    style={{ width: "100%" }}
-                    placeholder={
-                    defaultWayPointName ? defaultWayPointName : "Way Point Name"
-                    }
-                    onInput={(input) => {
-                    setWayPointNameInput(input.currentTarget.value);
-                    }}
-                    value={
-                    wayPointNameInput.trim().length > 0 ? wayPointNameInput : ""
-                    }
-                    // disabled={flag || Object.keys(wayPointsTableData).length === 0}
-                ></Input>
-                </Col>
-                <Col span={6}>
-                <Button
-                    id="saveWayPointBtn"
-                    type="primary"
-                    style={{ padding: 0 }}
-                    block
-                    // disabled={
-                    //   flag ||
-                    //   wayPointNameInput.trim().length === 0 ||
-                    //   Object.keys(wayPointsTableData).length === 0
-                    // }
-                    onClick={save}
                 >
-                    Save
+                Question Table
+                </span>
+
+                <Button
+                    type="primary"
+                    id="addQuestionBtn"
+                    style={{
+                    marginBottom: 16,
+                    }}
+                    onClick={() => {
+                        setVisible(true);
+                        // setErrorMsgForWorldName("");
+                    }}
+                >
+                    Add Question
                 </Button>
-                </Col>
-            </Row>
+                <AddQuestion
+                    selectedTopic={selectedTopic}
+                    visible={visible}
+                    onCreate={onCreate}
+                    onCancel={() => {
+                        setVisible(false);
+                    }}
+                />
+                <Form form={form} component={false}>
+                <Table
+                    components={{
+                        body: {
+                            cell: EditableCell,
+                        },
+                    }}
+                    className="questionTable"
+                    columns={mergedColumns}
+                    tableLayout="auto"
+                    dataSource={questionsTableData}
+                    pagination={false}
+                    bordered
+                />
+                </Form> 
+            </>}
             {/* </Panel>
         </Collapse> */}
         </div>

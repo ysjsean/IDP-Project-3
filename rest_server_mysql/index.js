@@ -6,6 +6,7 @@ const topics = require("./routes/topics");
 const users = require("./routes/users");
 const questions = require("./routes/questions");
 const answers = require("./routes/answers");
+const responses = require("./routes/reponses");
 
 app.use(express.json());
 app.use(
@@ -22,6 +23,7 @@ app.use("/api/topics", topics);
 app.use("/api/users", users);
 app.use("/api/questions", questions);
 app.use("/api/answers", answers);
+app.use("/api/responses", responses);
 
 app.use(cors({
     origin:'http://10.27.158.242:3000', 

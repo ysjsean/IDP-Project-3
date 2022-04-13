@@ -19,6 +19,7 @@ const Login_Logout = (props: any) => {
   const registerFormRef = React.createRef<FormInstance>();
   const loginFormRef = React.createRef<FormInstance>();
   const [errorMsg, setErrorMsg] = useState(String);
+  const [regErrorMsg, setRegErrorMsg] = useState(String);
 
   const tailLayout = {
     wrapperCol: { offset: 0, span: 6 },
@@ -32,7 +33,7 @@ const Login_Logout = (props: any) => {
 
   }
 
-  const authenticate = async () => {
+  const loginAuthenticate = async () => {
     console.log(loginFormRef.current?.getFieldValue("loginUsername"));
     const usernameField = loginFormRef.current?.getFieldValue("loginUsername");
     const value = loginFormRef.current?.getFieldValue("loginPassword");
@@ -88,12 +89,67 @@ const Login_Logout = (props: any) => {
       loginFormRef.current?.resetFields();
     }
   };
+
+  const registerAuthenticate = async () => {
+    console.log(loginFormRef.current?.getFieldValue("regUsername"));
+    const usernameField = registerFormRef.current?.getFieldValue("regUsername");
+    const passwordField = registerFormRef.current?.getFieldValue("regPassword");
+    const emailField = registerFormRef.current?.getFieldValue("regEmail");
+
+    if (registerFormRef.current?.getFieldValue("regUsername") !== undefined && registerFormRef.current?.getFieldValue("regPassword") !== undefined && registerFormRef.current?.getFieldValue("regEmail") !== undefined) {
+      registerFormRef.current.submit();
+      // const response = await fetch(`/api/users/instructor/login/${usernameField}/${value}`);
+      const response = await fetch(`${endpoints.url}/api/users/instructor/register`, {
+        method: "post",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({name: usernameField, password: passwordField, email: emailField}),
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        console.log(result);
+        if (result.success) {
+          alert("Register successfully, please proceed to login");
+          setErrorMsg("");
+          // setLoginSuccess(true);
+          // setShowModal(false);
+          // setUsernameField("");
+          // // setPasswordField("");
+          // setRole(result[0].data[0].role_id);
+          // setUserId(result[0].data[0].user_id);
+          // setUsername(result[0].data[0].username);
+          // sessionStorage.setItem("user_id", result[0].data[0].user_id);
+          // sessionStorage.setItem("role_id", result[0].data[0].role_id);
+          // sessionStorage.setItem("username", result[0].data[0].username);
+          registerFormRef.current?.resetFields();
+          // window.location.href = "/dashboard";
+        } else {
+          setRegErrorMsg("Error occured! Please try again later!");
+          // setUsernameField("");
+          // setPasswordField("");
+          registerFormRef.current?.resetFields();
+        }
+      } else {
+        setRegErrorMsg("Error occured! Please try again later!");
+        // setUsernameField("");
+        // setPasswordField("");
+        registerFormRef.current?.resetFields();
+      }
+    } else {
+      // setRegErrorMsg("Please fill in the required fills!");
+      // setUsernameField("");
+      // setPasswordField("");
+      registerFormRef.current?.resetFields();
+    }
+  };
   
   const { Item } = Form;
   return (
     <>
       <div className={styles.formMainDiv}>
-        <Form onSubmitCapture={() => authenticate()} layout={"vertical"} ref={loginFormRef} className={styles.loginFormStyles}>
+        <Form onSubmitCapture={() => loginAuthenticate()} layout={"vertical"} ref={loginFormRef} className={styles.loginFormStyles}>
           <fieldset>
             <legend>Login</legend>
             <div style={{"color": "red"}}>{errorMsg}</div>
@@ -109,9 +165,10 @@ const Login_Logout = (props: any) => {
           </fieldset>
         </Form>
         
-        <Form id="registerForm" layout={"vertical"} ref={registerFormRef} className={styles.regFormStyles} requiredMark>
+        <Form onSubmitCapture={() => registerAuthenticate()} id="registerForm" layout={"vertical"} ref={registerFormRef} className={styles.regFormStyles} requiredMark>
             <fieldset>
                 <legend>Register</legend>
+                <div style={{"color": "red"}}>{regErrorMsg}</div>
                 <Item name="regUsername" label="Username" hasFeedback rules={[{ required: true, message: 'Please input your username!' }, { pattern: /.{6,}/, message: 'Username must have minimum 6 characters!' }]}>
                   <Input />
                 </Item>
