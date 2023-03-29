@@ -26,8 +26,8 @@ app.use("/api/answers", answers);
 app.use("/api/responses", responses);
 
 app.use(cors({
-    origin:'http://10.27.158.242:3000', 
-    // origin:'http://localhost:3000', 
+    // origin:'http://10.27.158.242:3000', 
+    origin:'http://localhost:3000', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200,
  }));

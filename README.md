@@ -29,7 +29,7 @@ Clone to your local directory using the command `git clone <git repoo url here>`
 
 1. Go to the directory of where you clone the repo
 2. Go to rest_server_mysql and run `npm install`
-3. Run the command `npm start`
+3. Run the command `node ./index.js`
 4. Server should start at [http://localhost:8001](http://localhost:8001) to view
 5. Import the questionator.sql into your MySQL Workbench to view the database structure
 
