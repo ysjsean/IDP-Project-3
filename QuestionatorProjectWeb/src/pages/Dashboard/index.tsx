@@ -2,15 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Col, Row, Tabs } from "antd";
 import endpoints from "../endpoints";
 
-// import MapTable from "./components/MapTable";
 import TopicTable from "./components/TopicTable";
 import QuestionTable from "./components/QuestionTable";
 import ChoiceTable from "./components/ChoiceTable";
-// import UserTable from "./components/UserTable";
-// import ManageUser from "./components/ManageUser";
-// // import ManageRole from "./components/ManageRole";
-// import UserPermission from "./components/UserPermission";
-// import RolePermission from "./components/RolePermission";
 import "./index.css";
 import Statistics from "./components/Statistics";
 
@@ -27,20 +21,6 @@ const Dashboard = (props: any) => {
   const [choicesTableData, setChoicesTableData] = useState<
     { [key: string]: number }[]
   >([]);
-  const [mapsTableData, setMapsTableData] = useState<
-    { [key: string]: number }[]
-  >([]);
-  const [usersTableData, setUsersTableData] = useState<
-    { [key: string]: number }[]
-  >([]);
-
-  const [dropdownUsers, setDropdownUsers] = useState<{
-    [key: string]: string[];
-  }>({});
-
-  const [dropdownRoles, setDropdownRoles] = useState<{
-    [key: string]: string[];
-  }>({});
 
   const [isLoaded, setIsloaded] = useState(false);
 
@@ -107,10 +87,6 @@ const Dashboard = (props: any) => {
           questionData.push(b);
         }
       }
-        
-        // questionData.push(b);
-        // console.log(questionData);
-      // }
       setQuestionsTableData(questionData);
     }catch(err){
       console.log(err);
@@ -146,9 +122,7 @@ const Dashboard = (props: any) => {
         }
       }
         
-        // questionData.push(b);
-        console.log(choiceData);
-      // }
+      console.log(choiceData);
       setChoicesTableData(choiceData);
     }catch(err){
       console.log(err);
@@ -157,7 +131,7 @@ const Dashboard = (props: any) => {
 
   const getAllTopics = async () => {
     const user_id = sessionStorage.getItem("user_id");
-    const response = await fetch(`/api/topics/no_session/${user_id}/`);
+    const response = await fetch(`${endpoints.url}/api/topics/no_session/${user_id}/`);
     if (response.status === 200) {
       const result = await response.json();
       console.log(result);
@@ -170,9 +144,6 @@ const Dashboard = (props: any) => {
 
   useEffect(() => {
     getAllContents();
-    // getAllUsers();
-    // getUserTable();
-    // getAllRoles();
   }, []);
 
   return (
@@ -185,12 +156,6 @@ const Dashboard = (props: any) => {
                 getAllContents={getAllContents}
                 topicsTableData={topicsTableData}
               />
-            </Col>
-            <Col lg={{ span: 17 }} md={{ span: 24 }}>
-              {/* <MapTable
-                getAllContents={getAllContents}
-                mapsTableData={mapsTableData}
-              /> */}
             </Col>
           </Row>
         </TabPane>

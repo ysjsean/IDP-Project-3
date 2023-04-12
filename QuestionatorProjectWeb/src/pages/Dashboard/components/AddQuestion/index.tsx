@@ -1,13 +1,7 @@
 import React, { useState } from "react";
-// import styles from "./index.module.css";
 import { Col, Button, Input, Select, Form, Modal } from "antd";
 
 interface ContentProps {
-//   handleAdd: (world_name: any, map_name: any) => Promise<void>;
-//   errorMsgForWorldName: string;
-//   setErrorMsgForWorldName: React.Dispatch<React.SetStateAction<string>>;
-//   errorMsgForMapName: string;
-//   setErrorMsgForMapName: React.Dispatch<React.SetStateAction<string>>;
     selectedTopic: string
     visible: boolean;
     onCreate: (questionNo: any, question: any, choiceA: any, choiceB: any, choiceC: any, choiceD: any, isCorrect: any) => Promise<void>
@@ -19,14 +13,7 @@ const AddQuestion: React.FC<ContentProps> = ({
     visible,
     onCancel,
     onCreate
-//   handleAdd,
-//   errorMsgForMapName,
-//   setErrorMsgForMapName,
-//   errorMsgForWorldName,
-//   setErrorMsgForWorldName,
 }) => {
-    const [worldName, setWorldName] = useState<any>("");
-    const [mapName, setMapName] = useState<any>("");
     const [questionNo, setQuestionNo] = useState<any>();
     const [question, setQuestion] = useState<any>();
     const [choiceA, setChoiceA] = useState<any>();
@@ -37,25 +24,11 @@ const AddQuestion: React.FC<ContentProps> = ({
     const [isCorrect, setIsCorrect] = useState<any>("");
     const { Option } = Select;
 
-    const [dropdownWorlds, setDropdownWorlds] = useState<{
-        [key: string]: string[];
-    }>({});
-
     const [choices, setChoices] = useState<String[]>(["A", "B", "C", "D"]);
 
     const { Item } = Form;
     const [ form ] = Form.useForm();
     const { TextArea } = Input;
-
-    const getWorldName = async () => {
-        const res = await fetch("/api/database/getWorldNames");
-        if (res.status === 200) {
-        const result = await res.json();
-        if (result.success) {
-            setDropdownWorlds(result.data);
-        }
-        }
-    };
 
     return (
         <div>

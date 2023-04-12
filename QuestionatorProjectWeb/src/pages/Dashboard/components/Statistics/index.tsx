@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 // import styles from "./index.module.css";
-import { Col, Button, Input, Select, Form, Modal } from "antd";
 import { Chart } from "react-google-charts";
 
 interface ContentProps {

@@ -1,21 +1,13 @@
 import React, { useState } from "react";
-// import styles from "./index.module.css";
 import { Col, Button, Input, Select, Form, Modal } from "antd";
 
 interface ContentProps {
-//   handleAdd: (world_name: any, map_name: any) => Promise<void>;
-//   errorMsgForWorldName: string;
-//   setErrorMsgForWorldName: React.Dispatch<React.SetStateAction<string>>;
-//   errorMsgForMapName: string;
-//   setErrorMsgForMapName: React.Dispatch<React.SetStateAction<string>>;
-    // selectedTopic: string
     visible: boolean;
     onCreate: (name:String) => Promise<void>
     onCancel: () => void;
 }
 
 const AddTopic: React.FC<ContentProps> = ({
-    // selectedTopic,
     visible,
     onCancel,
     onCreate

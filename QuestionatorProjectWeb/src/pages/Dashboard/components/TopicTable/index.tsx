@@ -7,14 +7,12 @@ import {
   Popconfirm,
   Space,
   Typography,
-  Popover,
 } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DeleteOutlined, SaveOutlined, EditOutlined } from "@ant-design/icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
 import endpoints from "../../../endpoints";
 import AddTopic from "../AddTopic";
-// import AddWorld from "../AddWorld";
 
 interface TableProps {
   getAllContents: () => void;
@@ -70,7 +68,6 @@ const TopicTable: React.FC<TableProps> = ({
   topicsTableData,
   getAllContents,
 }) => {
-  const [errorMsgForWorldName, setErrorMsgForWorldName] = useState("");
   const [editingKey, setEditingKey] = useState("");
   const isEditing = (record: any) => record.key === editingKey;
   const [form] = Form.useForm();
@@ -211,7 +208,6 @@ const TopicTable: React.FC<TableProps> = ({
         "user_id": sessionStorage.getItem("user_id"),
         "name": name,
     }
-    // console.log(temp);
     const response = await fetch(
         `${endpoints.url}/api/topics/`,
             {
@@ -225,9 +221,9 @@ const TopicTable: React.FC<TableProps> = ({
         );
         const out = await response.json();
         if (out.success) {
-           getAllContents();
+          getAllContents();
         } else {
-            alert(out.message);
+          alert(out.message);
         }
   
     setVisible(false);
@@ -273,22 +269,6 @@ const TopicTable: React.FC<TableProps> = ({
       alert(out.message);
     }
   };
-
-  // const handleAdd = async (world_name: any) => {
-  //   const response = await fetch(`${endpoints.url}/api/database/addWorld/${world_name}`, {
-  //     method: "post",
-  //     headers: {
-  //       Accept: "application/json, text/plain, */*",
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   const out = await response.json();
-  //   if (out.success) {
-  //     getAllContents();
-  //   } else {
-  //     alert(out.message);
-  //   }
-  // };
 
   const mergedColumns = columns.map((col: any) => {
     if (!col.editable) {
@@ -341,21 +321,11 @@ const TopicTable: React.FC<TableProps> = ({
             }}
             onClick={() => {
               setVisible(true);
-              // setErrorMsgForWorldName("");
             }}
           >
             Add Topic
           </Button>
 
-        {/* <Popover
-          trigger="click"
-          placement="rightTop"
-          content={
-            
-          }
-        >
-          
-        </Popover> */}
         <Form form={form} component={false}>
           <Table
             components={{

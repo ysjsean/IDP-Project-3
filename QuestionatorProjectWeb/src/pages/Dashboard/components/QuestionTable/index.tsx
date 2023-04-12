@@ -1,11 +1,10 @@
     import React, { useState } from "react";
-    import { Select, Button, Input, Row, Col, Table, Popover, Form, Typography, Space, Popconfirm, Modal } from "antd";
+    import { Select, Button, Input, Row, Col, Table, Form, Typography, Space, Popconfirm } from "antd";
     import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
     import { DeleteOutlined, SaveOutlined, EditOutlined } from "@ant-design/icons";
     import { faBan } from "@fortawesome/free-solid-svg-icons";
     import endpoints from "../../../endpoints";
     import AddQuestion from "../AddQuestion";
-    // import "./index.css";
 
     interface WayPointProps {
         questionsTableData: {
@@ -19,28 +18,6 @@
         topicsNoSessionTableData: {
             [key: string]: number;
         }[];
-    //   ros: any;
-    //   mapSelected: string;
-    //   worldSelected: string;
-    //   robotMarker: any;
-    //   fakeRobotMarker: any;
-    //   isResetingTable: boolean;
-    //   flag: boolean;
-    //   setIsResetingTable: React.Dispatch<React.SetStateAction<boolean>>;
-    //   dropdownWayPoint: {
-    //     [key: string]: string[];
-    //   };
-    //   setDropdownWayPoint: (
-    //     value: React.SetStateAction<{
-    //       [key: string]: string[];
-    //     }>
-    //   ) => void;
-    //   wayPointsList: {
-    //     [key1: string]: number[];
-    //   }[];
-    //   wayPointsTableData: {
-    //     [key: string]: number;
-    //   }[];
     }
 
     const QuestionTable: React.FC<WayPointProps> = (props) => {
@@ -52,25 +29,10 @@
         isLoaded,
         getChoiceTableContents,
         topicsNoSessionTableData
-        // ros,
-        // mapSelected,
-        // worldSelected,
-        // dropdownWayPoint,
-        // setDropdownWayPoint,
-        // wayPointsList,
-        // robotMarker,
-        // fakeRobotMarker,
-        // wayPointsTableData,
-        // isResetingTable,
-        // flag,
     } = props;
     const { Option } = Select;
-    //   const { Panel } = Collapse;
 
-    const [wayPointNameInput, setWayPointNameInput] = useState("");
     const [selectedTopic, setSelectedTopic] = useState("");
-    const [selectedTopicId, setSelectedTopicId] = useState();
-    const [errorMsgForWorldName, setErrorMsgForWorldName] = useState("");
     const [editingKey, setEditingKey] = useState("");
     const isEditing = (record: any) => record.key === editingKey;
     const [form] = Form.useForm();
@@ -153,13 +115,6 @@
                 alert(out.message);
             }
     }
-
-    // const toggle = (key: any) => {
-    //     setIsTableExpanded(false);
-    //     if (key[0] === "showWayPointTable") {
-    //     setIsTableExpanded(true);
-    //     }
-    // };
 
     const edit = (record: any) => {
         console.log(record);
@@ -354,7 +309,7 @@
     };
 
     const handleDelete = async (key: any) => {
-        const response = await fetch(`/api/database/deleteWorld/${key}`, {
+        const response = await fetch(`${endpoints.url}/api/database/deleteWorld/${key}`, {
         method: "delete",
         headers: {
             Accept: "application/json, text/plain, */*",
@@ -390,14 +345,11 @@
             <Col span={18}>
             <Select
                 placeholder="Load Topics"
-                // disabled={flag}
                 onClick={() => {
                     getAllTopics();
                 }}
                 onChange={(value, data:any) => {
-                // setDefaultWayPointName(value.toString());
                     setSelectedTopic(data.key.toString());
-                    // setSelectedTopicId(data)
                     setIsloaded(false);
                 }}
                 style={{ width: "100%", marginBottom: 10 }}
@@ -419,7 +371,6 @@
                 type="primary"
                 style={{ padding: 0 }}
                 block
-                // disabled={flag || defaultWayPointName.length === 0}
                 onClick={() => {
                     getQuestionTableContents(selectedTopic);
                     getChoiceTableContents(selectedTopic);
@@ -451,7 +402,6 @@
                     }}
                     onClick={() => {
                         setVisible(true);
-                        // setErrorMsgForWorldName("");
                     }}
                 >
                     Add Question
@@ -480,8 +430,6 @@
                 />
                 </Form> 
             </>}
-            {/* </Panel>
-        </Collapse> */}
         </div>
     );
     };

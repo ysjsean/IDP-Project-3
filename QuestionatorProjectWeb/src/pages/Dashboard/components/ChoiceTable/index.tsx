@@ -1,33 +1,26 @@
 import React, { useState } from "react";
 import {
-  Form,
-  Table,
-  Input,
-  Button,
-  Popconfirm,
-  Space,
-  Typography,
-  Popover,
-  Select,
+    Form,
+    Table,
+    Input,
+    Popconfirm,
+    Space,
+    Typography,
+    Popover,
+    Select,
 } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  DeleteOutlined,
-  SaveOutlined,
-  EditOutlined,
-  PlusOutlined,
+    SaveOutlined,
+    EditOutlined,
 } from "@ant-design/icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
-// import AddMap from "../AddMap";
+import endpoints from "../../../endpoints";
 
 interface TableProps {
     choicesTableData: {
         [key: string]: number;
     }[]
-//   getAllContents: () => void;
-//   mapsTableData: {
-//     [key: string]: number;
-//   }[];
 }
 
 const EditableCell = ({
@@ -102,8 +95,6 @@ const EditableCell = ({
     const ChoiceTable: React.FC<TableProps> = ({
         choicesTableData
     }) => {
-    const [errorMsgForWorldName, setErrorMsgForWorldName] = useState("");
-    const [errorMsgForMapName, setErrorMsgForMapName] = useState("");
     const [editingKey, setEditingKey] = useState("");
     const isEditing = (record: any) => record.key === editingKey;
     const [form] = Form.useForm();
@@ -128,7 +119,7 @@ const EditableCell = ({
         console.log(key);
         console.log(row);
         const response = await fetch(
-            `/api/answers/updateMap/${key.question_no}`,
+            `${endpoints.url}/api/answers/updateMap/${key.question_no}`,
             {
             method: "put",
             headers: {
@@ -146,133 +137,6 @@ const EditableCell = ({
         }
         } catch (errInfo) {
         console.log("Validate Failed:", errInfo);
-        }
-    };
-
-    // const deletePhysicalFiles = async (
-    //   key: any,
-    //   world_name: any,
-    //   map_name: any
-    // ) => {
-    //   const response = await fetch(
-    //     `/api/database/deletePhysicalMap/${key}/${world_name}/${map_name}`,
-    //     {
-    //       method: "delete",
-    //       headers: {
-    //         Accept: "application/json, text/plain, */*",
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-    //   const out = await response.json();
-    //   if (out.success) {
-    //     getAllContents();
-    //     alert(out.message);
-    //   } else {
-    //     alert(out.message);
-    //   }
-    // };
-
-    const savePhysicalFiles = async (
-        key: any,
-        world_name: any,
-        map_name: any
-    ) => {
-        var imageFiles: any = document.getElementById(`inputImageToLoad${key}`);
-        var yamlFiles: any = document.getElementById(`inputYamlToLoad${key}`);
-        var pcdFiles: any = document.getElementById(`inputPcdToLoad${key}`);
-
-        var filesSelected = imageFiles.files;
-        var yamlSelected = yamlFiles.files;
-        var pcdSelected = pcdFiles.files;
-
-        if (
-        filesSelected.length > 0 &&
-        yamlSelected.length > 0 &&
-        pcdSelected.length > 0
-        ) {
-        var fileName = filesSelected[0].name;
-        var fileExt = fileName.split(".")[1];
-
-        var yamlName = yamlSelected[0].name;
-        var yamlExt = yamlName.split(".")[1];
-
-        var pcdName = pcdSelected[0].name;
-        var pcdExt = pcdName.split(".")[1];
-
-        if (fileExt === "pgm") {
-            if (yamlExt === "yaml") {
-            if (pcdExt === "pcd") {
-                if (filesSelected.length > 0) {
-                var fileToLoad = filesSelected[0];
-                var yamlToLoad = yamlSelected[0];
-                var pcdToLoad = pcdSelected[0];
-
-                var fileReader = new FileReader();
-                var yamlReader = new FileReader();
-                var pcdReader = new FileReader();
-
-                fileReader.onload = async function (fileLoadedEvent) {
-                    var dataURL = fileLoadedEvent.target?.result;
-
-                    yamlReader.onload = async function (fileLoadedEvent) {
-                    var yamlDataURL = fileLoadedEvent.target?.result;
-
-                    pcdReader.onload = async function (fileLoadedEvent) {
-                        var pcdDataURL = fileLoadedEvent.target?.result;
-                        var save = {
-                        url: dataURL,
-                        yaml: yamlDataURL,
-                        pcd: pcdDataURL,
-                        };
-                        try {
-                        const response = await fetch(
-                            `/api/database/addPhysicalMap/${key}/${world_name}/${map_name}`,
-                            {
-                            method: "put",
-                            headers: {
-                                Accept:
-                                "application/json, application/x-yaml, text/plain, */*",
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(save),
-                            }
-                        );
-                        const out = await response.json();
-                        if (out.success) {
-                            // getAllContents();
-                            alert(out.message);
-                            var add: any = document.getElementsByClassName(
-                            `addImage${key}`
-                            )[0];
-                            add.click();
-                        } else {
-                            alert(out.message);
-                        }
-                        } catch (errInfo) {
-                        console.log("Validate Failed:", errInfo);
-                        }
-                    };
-
-                    pcdReader.readAsDataURL(pcdToLoad);
-                    };
-
-                    yamlReader.readAsDataURL(yamlToLoad);
-                };
-
-                fileReader.readAsDataURL(fileToLoad);
-                }
-            } else {
-                alert("Please select a PCD file.");
-            }
-            } else {
-            alert("Please select a yaml file.");
-            }
-        } else {
-            alert("Please select a PGM image");
-        }
-        } else {
-        alert("Please select a PGM, YAML and PCD file.");
         }
     };
 
@@ -371,38 +235,6 @@ const EditableCell = ({
         },
     ];
 
-    const handleDelete = async (key: any) => {
-        const response = await fetch(`/api/database/deleteMap/${key}`, {
-        method: "delete",
-        headers: {
-            Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json",
-        },
-        });
-        const out = await response.json();
-        if (out.success) {
-        // getAllContents();
-        }
-    };
-
-    const handleAdd = async (world_name: any, map_name: any) => {
-        const response = await fetch(
-        `/api/database/addMap/${world_name}/${map_name}`,
-        {
-            method: "post",
-            headers: {
-            Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json",
-            },
-        }
-        );
-        const out = await response.json();
-        if (out.success) {
-        // getAllContents();
-        } else {
-        alert(out.message);
-        }
-    };
 
     const mergedColumns = columns.map((col: any) => {
         if (!col.editable) {
@@ -443,15 +275,6 @@ const EditableCell = ({
             <Popover
             trigger="click"
             placement="rightTop"
-            // content={
-            //     <AddMap
-            //     handleAdd={handleAdd}
-            //     errorMsgForMapName={errorMsgForMapName}
-            //     setErrorMsgForMapName={setErrorMsgForMapName}
-            //     errorMsgForWorldName={errorMsgForWorldName}
-            //     setErrorMsgForWorldName={setErrorMsgForWorldName}
-            //     />
-            // }
             >
             </Popover>
             <Form form={form} component={false}>

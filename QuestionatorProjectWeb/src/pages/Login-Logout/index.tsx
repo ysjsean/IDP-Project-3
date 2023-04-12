@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react";
+import React, {useState} from "react";
 import { Form, Input, Button } from "antd";
 import { FormInstance } from 'antd/es/form';
 import styles from "./index.module.css";
@@ -29,10 +29,6 @@ const Login_Logout = (props: any) => {
     registerFormRef.current?.resetFields();
   };
 
-  const onLogin = () => {
-
-  }
-
   const loginAuthenticate = async () => {
     console.log(loginFormRef.current?.getFieldValue("loginUsername"));
     const usernameField = loginFormRef.current?.getFieldValue("loginUsername");
@@ -40,7 +36,6 @@ const Login_Logout = (props: any) => {
 
     if (loginFormRef.current?.getFieldValue("loginUsername") !== undefined && loginFormRef.current?.getFieldValue("loginPassword") !== undefined) {
       loginFormRef.current.submit();
-      // const response = await fetch(`/api/users/instructor/login/${usernameField}/${value}`);
       const response = await fetch(`${endpoints.url}/api/users/instructor/login`, {
         method: "post",
         headers: {
@@ -55,9 +50,7 @@ const Login_Logout = (props: any) => {
         if (result[0].success) {
           setErrorMsg("");
           setLoginSuccess(true);
-          // setShowModal(false);
-          // setUsernameField("");
-          // setPasswordField("");
+          
           setRole(result[0].data[0].role_id);
           setUserId(result[0].data[0].user_id);
           setUsername(result[0].data[0].username);
@@ -68,14 +61,12 @@ const Login_Logout = (props: any) => {
           window.location.href = "/dashboard";
         } else {
           setErrorMsg("The username or password you have entered is incorrect");
-          // setUsernameField("");
-          // setPasswordField("");
+          
           loginFormRef.current?.resetFields();
         }
       } else {
         setErrorMsg("The password you have type is incorrect");
-        // setUsernameField("");
-        // setPasswordField("");
+        
         loginFormRef.current?.resetFields();
       }
     } else {
@@ -84,8 +75,7 @@ const Login_Logout = (props: any) => {
           usernameField === undefined ? "enter a username and" : ""
         } enter a password`
       );
-      // setUsernameField("");
-      // setPasswordField("");
+      
       loginFormRef.current?.resetFields();
     }
   };
@@ -98,7 +88,6 @@ const Login_Logout = (props: any) => {
 
     if (registerFormRef.current?.getFieldValue("regUsername") !== undefined && registerFormRef.current?.getFieldValue("regPassword") !== undefined && registerFormRef.current?.getFieldValue("regEmail") !== undefined) {
       registerFormRef.current.submit();
-      // const response = await fetch(`/api/users/instructor/login/${usernameField}/${value}`);
       const response = await fetch(`${endpoints.url}/api/users/instructor/register`, {
         method: "post",
         headers: {
@@ -113,34 +102,20 @@ const Login_Logout = (props: any) => {
         if (result.success) {
           alert("Register successfully, please proceed to login");
           setErrorMsg("");
-          // setLoginSuccess(true);
-          // setShowModal(false);
-          // setUsernameField("");
-          // // setPasswordField("");
-          // setRole(result[0].data[0].role_id);
-          // setUserId(result[0].data[0].user_id);
-          // setUsername(result[0].data[0].username);
-          // sessionStorage.setItem("user_id", result[0].data[0].user_id);
-          // sessionStorage.setItem("role_id", result[0].data[0].role_id);
-          // sessionStorage.setItem("username", result[0].data[0].username);
+          
           registerFormRef.current?.resetFields();
-          // window.location.href = "/dashboard";
+          
         } else {
           setRegErrorMsg("Error occured! Please try again later!");
-          // setUsernameField("");
-          // setPasswordField("");
+          
           registerFormRef.current?.resetFields();
         }
       } else {
         setRegErrorMsg("Error occured! Please try again later!");
-        // setUsernameField("");
-        // setPasswordField("");
+        
         registerFormRef.current?.resetFields();
       }
     } else {
-      // setRegErrorMsg("Please fill in the required fills!");
-      // setUsernameField("");
-      // setPasswordField("");
       registerFormRef.current?.resetFields();
     }
   };
